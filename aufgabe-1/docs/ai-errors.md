@@ -6,7 +6,7 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 
 ## 1 · 2026-10-24 16:11 · Workflow · Committed without the user reviewing
 
-- **What the AI did:** created the initial Git commit itself (`47e6480`) right after setting up the repository.
+- **What the AI did:** created the initial Git commit itself (`9af460b`) right after setting up the repository.
 - **How it was noticed:** the user saw the commit and asked for a different workflow.
 - **Impact:** none on content; the user didn't get to review the commit before it was made.
 - **Correction:** new rule in `CLAUDE.md` › Git workflow: Claude only stages changes and drafts the commit message; the user reviews and commits in VS Code.
