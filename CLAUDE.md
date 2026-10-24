@@ -11,6 +11,8 @@ University lab course, HS Albstadt-Sigmaringen. Done solo, although the PDF assu
 
 ## Working with Claude
 - **Walk the user through first.** Before changing anything (creating or editing files, installing tools, running builds, driving the emulator), explain the plan step by step: what will happen, why, and which files are affected. Then wait for the user's go. Read-only checks (reading files or docs, `git status`) need no approval.
+- **Decisions one at a time.** When decisions are needed, first give a short overview list, one line per decision. Then present them one by one, each in the same format (context, options table, recommendation), and wait for the user's answer before moving on to the next. Never ask for several decisions at once.
+- **Missing tools: ask, don't improvise.** If a standard tool is missing (e.g. a PDF engine), name it, say why it's needed, and ask the user to install it instead of building a workaround.
 
 ## Git workflow
 - **Claude never commits or pushes.** Claude stages the relevant files (`git add`), shows what is staged, and presents only the drafted commit message as plain text in a code block (subject line, blank line, body), with no `git commit` command. The user pastes it into VS Code's commit box and commits.
