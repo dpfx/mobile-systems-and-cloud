@@ -12,7 +12,7 @@ Task description: `../aufgabe-1.pdf`, pages 6–7. Deadline: 2026-10-26 (upload 
 | File | PDF section |
 |---|---|
 | `specification.md` | Part A – spec (= prompt), max. 1 page |
-| `guidelines.md` | Pinned best practices with sources; the key rules go into the spec, the full list is the Part C review checklist |
+| `guidelines.md` | Pinned best practices with sources; the key rules are in the spec, the full list was given to the generating AI as coding rules and is the Part C review checklist |
 | `review.md` | Part C – ≥ 3 findings: location, problem, impact, fix (+ Git commit) |
 | `measurements.md` | Part D – per sensor: setup, expected value + derivation/source, measured mean, deviation, explanation; event rate at two delay settings |
 | `assessment.md` | Part E – edge vs. cloud; personal data |

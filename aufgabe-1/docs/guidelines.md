@@ -4,6 +4,7 @@ Pinned best practices for this app. Each rule was checked against the official d
 
 How they're used:
 - **Spec (Part A):** the most important rules go into the spec as non-functional requirements (see [Candidates for the spec](#candidates-for-the-spec)).
+- **Generation (Part B):** the full list was given to the generating AI as coding rules, alongside the spec.
 - **Review (Part C):** the full list is the review checklist and extends the checklist in the task PDF. Every finding cites a rule ID.
 
 Levels: **MUST** = "Strongly recommended" in the source, **SHOULD** = "Recommended", **OWN** = our own decision without an official source; the rationale is given.
