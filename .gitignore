@@ -1,0 +1,28 @@
+# Course material: the lecturer's PDFs stay out of the repo in case it is ever made public
+/aufgabe-*.pdf
+
+# Gradle / Android build output
+.gradle/
+.kotlin/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+local.properties
+
+# IDEs and OS files
+.idea/
+*.iml
+.vscode/
+.DS_Store
+
+# Secrets
+.env
+.env.*
+*.jks
+*.keystore
+
+# Claude Code: personal settings (shared settings in .claude/settings.json are committed)
+.claude/settings.local.json
