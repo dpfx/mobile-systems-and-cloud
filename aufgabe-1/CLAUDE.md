@@ -16,6 +16,7 @@ Task description: `../aufgabe-1.pdf`, pages 6–7. Deadline: 2026-10-26 (upload 
 | `review.md` | Part C – ≥ 3 findings: location, problem, impact, fix (+ Git commit) |
 | `measurements.md` | Part D – per sensor: setup, expected value + derivation/source, measured mean, deviation, explanation; event rate at two delay settings |
 | `assessment.md` | Part E – edge vs. cloud; personal data |
+| `ai-errors.md` | Chronological record of every AI error (date/time, what happened, how it was noticed, correction). **Add an entry as soon as an AI error is found.** Raw material for `ai-log.md` |
 | `ai-log.md` | AI log (template on page 4 of the PDF) |
 | `screenshots/` | display modes, a triggered warning, logging chain |
 
