@@ -10,7 +10,7 @@ University lab course, HS Albstadt-Sigmaringen. Done solo, although the PDF assu
 - Every submission includes an AI log (max. one page, template on page 4 of the PDF). Keep AI work traceable for it (see Git workflow).
 
 ## Git workflow
-- **Claude never commits or pushes.** Claude stages the relevant files (`git add`), shows what is staged, and presents a ready-to-paste `git commit` command with a drafted message. The user reviews it and commits.
+- **Claude never commits or pushes.** Claude stages the relevant files (`git add`), shows what is staged, and presents only the drafted commit message as plain text in a code block (subject line, blank line, body), with no `git commit` command. The user pastes it into VS Code's commit box and commits.
 - Raw AI-generated code is committed **unchanged** first ("raw AI output: …"), then each review fix separately, naming the finding it fixes. The diffs are the evidence for the code review.
 - Never commit `build/`, `.gradle/`, `local.properties`, `.env` or IDE files.
 
