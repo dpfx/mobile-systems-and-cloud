@@ -5,7 +5,7 @@ Task description: `../aufgabe-1.pdf`, pages 6–7. Deadline: 2026-10-26 (upload 
 ## The spec is the source of truth
 - What the app does is defined **only** by `docs/specification.md` (Part A; it is also the prompt that generates the app).
 - Don't add features, sensors, libraries or behaviour that the spec doesn't require. If the spec is unclear or incomplete, ask instead of guessing, and record the gap so the spec can be improved.
-- Until the user marks the spec as final, don't write app logic. Project setup and build tooling are fine.
+- The spec was marked final on 2026-10-24. Any later change to it must be recorded with what changed and why, because the PDF requires the spec to be the prompt.
 - This file is also input to the AI, so list it in the AI log.
 
 ## Documentation (`docs/`, English)
