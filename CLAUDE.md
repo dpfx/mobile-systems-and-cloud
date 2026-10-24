@@ -9,6 +9,9 @@ University lab course, HS Albstadt-Sigmaringen. Done solo, although the PDF assu
 - **Everything is in English**: code, comments, commit messages, docs and the submission PDF. Docs follow the course rule "as little as possible, as much as necessary": no background chapters; every claim backed by a screenshot, measurement or excerpt.
 - Every submission includes an AI log (max. one page, template on page 4 of the PDF). Keep AI work traceable for it (see Git workflow).
 
+## Working with Claude
+- **Walk the user through first.** Before changing anything (creating or editing files, installing tools, running builds, driving the emulator), explain the plan step by step: what will happen, why, and which files are affected. Then wait for the user's go. Read-only checks (reading files or docs, `git status`) need no approval.
+
 ## Git workflow
 - **Claude never commits or pushes.** Claude stages the relevant files (`git add`), shows what is staged, and presents only the drafted commit message as plain text in a code block (subject line, blank line, body), with no `git commit` command. The user pastes it into VS Code's commit box and commits.
 - Raw AI-generated code is committed **unchanged** first ("raw AI output: …"), then each review fix separately, naming the finding it fixes. The diffs are the evidence for the code review.
