@@ -18,10 +18,10 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [x] Fixes, one commit each (F1–F5)
 
 ## Part D – Verification by measurement (`docs/measurements.md`)
-- [ ] Accelerometer experiment: setup, expected value with source, mean of several runs, deviation, explanation
-- [ ] Barometer experiment, same structure
-- [ ] GPS experiment, same structure, including the jitter filter
-- [ ] Event rate at `SENSOR_DELAY_NORMAL` vs. `SENSOR_DELAY_GAME`, compared with the requested rate; consequence for energy use
+- [x] Accelerometer experiment: setup, expected value with source, mean of several runs, deviation, explanation
+- [x] Barometer experiment, same structure
+- [x] GPS experiment, same structure, including the jitter filter
+- [x] Event rate at `SENSOR_DELAY_NORMAL` vs. `SENSOR_DELAY_GAME`, compared with the requested rate; consequence for energy use
 
 ## Part E – Assessment (`docs/assessment.md`)
 - [ ] Edge vs. cloud for activity recognition: latency, energy, offline capability, privacy
@@ -37,6 +37,7 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [ ] Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5
 
 ## Submission
+- [ ] Condense `review.md` and `measurements.md` for the PDF, always from the full docs (trim list in `HANDOFF.md`, next step 5)
 - [ ] PDF built with pandoc + WeasyPrint; stylesheet in the repo
 - [ ] Title page with name and matriculation number (filled in by the student)
 - [ ] File name `aufgabe_1_<surname>.pdf`

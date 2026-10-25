@@ -109,3 +109,10 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **How it was noticed:** two of five runs measured 100.3 m instead of 111.2 m. A live recording of the app's log showed `rejected: step 10.9 m in 1.0 s = 10.9 m/s > 10 m/s`: the app correctly applied the plausibility limit (amendment A3) to the test's own too-fast step.
 - **Impact:** the first GPS results were unusable as a measurement of the walk; the jitter and jump results were not affected.
 - **Correction:** the script now waits 6 s after Reset, so the first step is as slow as the others; the GPS section was measured again.
+
+## 16 · 2026-10-25 17:25 · Reasoning · Explained the GPS step sizes with a hypothesis its own data contradicts
+
+- **What the AI did:** in `HANDOFF.md`, explained why single GPS steps alternate between 10.9 m and 11.3 m with a position grid of ~0.42 m, "the resolution of a 32-bit float at 48°". It marked the mechanism as not confirmed, but didn't check the hypothesis against the measured data.
+- **How it was noticed:** while preparing `measurements.md`, the AI computed what 32-bit float rounding of the walk's positions would produce: steps of 11.03 m and 11.45 m (not alternating) and a total of 111.1 m, while the app measured 111.2 m in all runs.
+- **Impact:** none on the results; the wrong explanation would have gone into the measurement report.
+- **Correction:** hypothesis dropped. `measurements.md` reports the observed step sizes with a new log excerpt (`measurements/gps-steps.log`) and states that the mechanism was not determined; `HANDOFF.md` was corrected.
