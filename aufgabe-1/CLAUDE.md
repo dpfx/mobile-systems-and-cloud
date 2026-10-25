@@ -5,15 +5,16 @@ Task description: `../aufgabe-1.pdf`, pages 6–7. Deadline: 2026-10-26 (upload 
 Progress is tracked in `TODO.md`; update it when a step is done.
 
 ## The spec is the source of truth
-- What the app does is defined **only** by `docs/specification.md` (Part A; it is also the prompt that generates the app).
+- What the app does is defined **only** by `docs/specification.md` (Part A; the prompt that generated the app) plus `docs/spec-amendments.md`. Where they differ, the amendment applies.
 - Don't add features, sensors, libraries or behaviour that the spec doesn't require. If the spec is unclear or incomplete, ask instead of guessing, and record the gap so the spec can be improved.
-- The spec was marked final on 2026-10-24. Any later change to it must be recorded with what changed and why, because the PDF requires the spec to be the prompt.
+- The spec was marked final on 2026-10-24 and is no longer edited, because the PDF requires the spec to be the prompt. Later changes are added to `docs/spec-amendments.md` as numbered amendments (section, original wording, amended wording, reason, finding).
 - This file is also input to the AI, so list it in the AI log.
 
 ## Documentation (`docs/`, English)
 | File | PDF section |
 |---|---|
-| `specification.md` | Part A – spec (= prompt), max. 1 page |
+| `specification.md` | Part A – spec (= prompt), max. 1 page; frozen |
+| `spec-amendments.md` | Changes to the spec after it became final, each with reason and finding |
 | `guidelines.md` | Pinned best practices with sources; the key rules are in the spec, the full list was given to the generating AI as coding rules and is the Part C review checklist |
 | `review.md` | Part C – ≥ 3 findings: location, problem, impact, fix (+ Git commit) |
 | `measurements.md` | Part D – per sensor: setup, expected value + derivation/source, measured mean, deviation, explanation; event rate at two delay settings |

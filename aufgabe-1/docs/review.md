@@ -190,7 +190,7 @@ Optimisation note, not a finding: the chart data (up to 3 × 600 points) is rebu
 | **Location** | `app/build.gradle.kts` (dependencies), `gradle/libs.versions.toml`; used in 16 imports (`kotlinx.coroutines.flow`, `.channels`, `launch`, `delay`), e.g. `data/SensorRepository.kt:8-11` |
 | **Problem** | The library only reaches the app indirectly through the AndroidX libraries, so its version is whatever Gradle resolves (currently 1.11.0). Rule CODE-2 and spec section 7 ("all pinned") require every used library to be declared with an exact version. Root cause is a spec gap: the spec requires `callbackFlow` and `StateFlow` (section 7), which come from `kotlinx-coroutines`, but its library list ("Only AndroidX, Compose, Vico") doesn't include it. The generating AI resolved this contradiction silently (generation report, assumption 15). |
 | **Impact** | No effect today. Any AndroidX update can change the coroutines version unnoticed; the build doesn't show which version the code was written and tested against. |
-| **Fix** | Open: decided after the review. |
+| **Fix** | `org.jetbrains.kotlinx:kotlinx-coroutines-android` declared with version 1.11.0 in `gradle/libs.versions.toml` and `app/build.gradle.kts`; spec amendment A1 adds the library to the allowed list. Verified: Gradle now lists it as a direct dependency at 1.11.0, all indirect requests (1.8.1, 1.9.0) resolve to 1.11.0, so the app's behaviour is unchanged; the build succeeds. Commit "Fix F2: declare and pin kotlinx-coroutines". |
 
 ## 8. Privacy (PRIV-1, LOG-1)
 
