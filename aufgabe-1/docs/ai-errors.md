@@ -88,3 +88,10 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **How it was noticed:** the script reported "NOT FOUND: Enable GPS".
 - **Impact:** the step had to be repeated with a fresh app process.
 - **Correction:** each test step that needs a clean state now starts from one (permission revoked, which also ends the app process), and the expected starting screen is checked first.
+
+## 13 · 2026-10-25 15:23 · Code · Skeleton without an app icon, although described as template-equivalent
+
+- **What the AI did:** created the project skeleton (Part B, 2026-10-24) and described it as equivalent to Android Studio's "Empty Activity" template, but left out the launcher icon that the template includes.
+- **How it was noticed:** Android Lint in the code review (Part C, item 7): `MissingApplicationIcon` – "Should explicitly set android:icon, there is no default".
+- **Impact:** the app shows Android's generic placeholder icon on the home screen and in the notification shade.
+- **Correction:** recorded as a candidate for the fixes after the review.

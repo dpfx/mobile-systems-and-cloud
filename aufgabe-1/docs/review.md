@@ -14,8 +14,8 @@
 | 4 | Units and formulas | correct, but distance without plausibility check | F1 |
 | 5 | Sampling rate and energy | appropriate | – |
 | 6 | UI and memory: redraw per reading, unbounded lists | correct | – |
-| 7 | APIs and libraries: deprecated or non-existent | open | |
-| 8 | Privacy: location stored or logged | open | |
+| 7 | APIs and libraries: deprecated or non-existent | correct, but one library not declared | F2 |
+| 8 | Privacy: location stored or logged | correct | – |
 
 ## 1. Lifecycle (SENS-1, ARCH-1)
 
@@ -167,11 +167,52 @@ The emulator reports every frame as "janky", including the two idle frames on th
 
 Optimisation note, not a finding: the chart data (up to 3 × 600 points) is rebuilt for every snapshot, also while the Values tab is shown. It doesn't cause redraws there, only some extra allocation, visible in the heap's sawtooth.
 
+## 7. APIs and libraries (CODE-2, SENS-5)
+
+**Verdict: no deprecated or non-existent APIs, all versions current; one finding (F2) on an undeclared library.**
+
+**How we know:**
+
+| Check | Result |
+|---|---|
+| Non-existent APIs or versions | none: the project builds cleanly from scratch (`./gradlew clean assembleDebug`). |
+| Deprecated APIs | none: a full recompile with all warnings shows 0 compiler warnings. The generation report notes that the deprecated Vico function `lineSeries` was avoided in favour of `lineModel`. |
+| Android Lint (`lintDebug`) | 2 warnings, both from the skeleton, not from the generated code: newer Gradle available (9.8.2; 9.6.1 was chosen as AGP 9.4's default) and no app icon (`MissingApplicationIcon`, see "Beyond the checklist"). |
+| Pinned vs. latest stable version (2026-10-25) | AGP 9.4.1, Kotlin 2.4.21, Compose BOM 2026.09.00, activity-compose 1.13.0, core 1.19.1, lifecycle 2.11.0, Vico 3.3.1: all current. |
+| Suppressed warnings | All four justified: `MissingPermission` in `data/ShockNotifier.kt:46` (`canNotify()` checked right before) and `data/LocationRepository.kt:66` (permission checked inside, `SecurityException` caught); `UNCHECKED_CAST` in `processing/RingBuffer.kt:34` (only items of type `T` are stored); `InlinedApi` in `data/ShockNotifier.kt:35`: the bytecode of `ContextCompat.checkSelfPermission` (androidx.core 1.19.1) shows that below API 33 it answers `POST_NOTIFICATIONS` with `areNotificationsEnabled()`, as the comment claims. |
+
+### F2 – `kotlinx-coroutines` is used but not declared or pinned
+
+| | |
+|---|---|
+| **Location** | `app/build.gradle.kts` (dependencies), `gradle/libs.versions.toml`; used in 16 imports (`kotlinx.coroutines.flow`, `.channels`, `launch`, `delay`), e.g. `data/SensorRepository.kt:8-11` |
+| **Problem** | The library only reaches the app indirectly through the AndroidX libraries, so its version is whatever Gradle resolves (currently 1.11.0). Rule CODE-2 and spec section 7 ("all pinned") require every used library to be declared with an exact version. Root cause is a spec gap: the spec requires `callbackFlow` and `StateFlow` (section 7), which come from `kotlinx-coroutines`, but its library list ("Only AndroidX, Compose, Vico") doesn't include it. The generating AI resolved this contradiction silently (generation report, assumption 15). |
+| **Impact** | No effect today. Any AndroidX update can change the coroutines version unnoticed; the build doesn't show which version the code was written and tested against. |
+| **Fix** | Open: decided after the review. |
+
+## 8. Privacy (PRIV-1, LOG-1)
+
+**Verdict: correct.** Location is neither stored nor logged with more than the precision the spec allows.
+
+**How we know – code:**
+
+- No storage API anywhere in the code (no files, preferences, database or DataStore); all values live in the ViewModel's memory.
+- Positions reach the log in two places, both rounded to 3 decimals (≈ 100 m): `ui/SensorLabViewModel.kt:302-306` (stage `SensorLab.Sensor`) and `ui/ValuesTab.kt:194` (stage `SensorLab.UI`). The processing stage logs no coordinates; the notification contains none.
+- `log/ChainLog.kt:21`: logging is off in release builds (`BuildConfig.DEBUG`).
+
+**How we know – emulator (2026-10-25):**
+
+| Check | Result |
+|---|---|
+| Files in the app's data folder (`run-as … find . -type f`) | only `files/profileInstalled`, a marker file of AndroidX's profile installer (start-up optimisation), no app data |
+| App log lines with a position | 1,370 lines, 0 with more than 3 decimals |
+
+Even rounded to 3 decimals, the debug log is a movement trace with ≈ 100 m precision; this is what the spec allows and is discussed in Part E.
+
 ## Candidate findings (to be checked under the remaining items)
 - **Tapping the notification may stack a second screen** (`data/ShockNotifier.kt:50-55`): the intent has no launch flags. Not in the spec (generation report, assumption 6).
 - **Features beyond the spec:** Dismiss button on the banner, notification tap opens the app (generation report, assumption 6).
-- **`kotlinx-coroutines` used but not declared** (CODE-2; generation report, assumption 15).
 - **All processing on the main thread** (generation report, assumption 13).
 - **`SensorLab.Sensor` lines logged in the ViewModel**, not where the events arrive (generation report, assumption 14).
-- **Hard-coded UI texts, no app icon** (lint).
+- **Hard-coded UI texts; no app icon** (Lint `MissingApplicationIcon`; the icon was left out of the skeleton, see `ai-errors.md` entry 13).
 - **A missing sensor is not logged** (`ui/SensorLabViewModel.kt:153, 163`): with no barometer the app logs nothing about it, so the log alone can't tell "missing" from "silent". Spec section 6 asks for state changes to be logged.
