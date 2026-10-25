@@ -15,7 +15,7 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [x] Check on the emulator what the smoke test didn't cover: GPS permission flow, rate switch, Reset, pause in the background, missing sensor
 - [x] At least 3 findings, each with location, problem, impact and fix
 - [x] Points the AI got right, with how we know
-- [ ] Fixes, one commit each
+- [x] Fixes, one commit each (F1–F5)
 
 ## Part D – Verification by measurement (`docs/measurements.md`)
 - [ ] Accelerometer experiment: setup, expected value with source, mean of several runs, deviation, explanation

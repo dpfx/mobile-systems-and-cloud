@@ -238,7 +238,7 @@ Even rounded to 3 decimals, the debug log is a movement trace with ≈ 100 m pre
 | **Location** | `app/src/main/AndroidManifest.xml:21` (no `android:icon`) |
 | **Problem** | The project skeleton, created by the AI before the spec, has no launcher icon, although it was described as equivalent to Android Studio's "Empty Activity" template (`ai-errors.md`, entry 13). Lint: `MissingApplicationIcon`. |
 | **Impact** | Android's generic placeholder icon on the home screen and in the notification (screenshot `06-shock-notification.png`). |
-| **Fix** | Open: decided after the review. |
+| **Fix** | Adaptive launcher icon added (vector only, since the app's minimum is Android 8.0): `res/mipmap-anydpi/ic_launcher.xml` with background colour and foreground motif (mountain peaks with a measurement curve, also used as the monochrome themed icon), referenced by `android:icon` in the manifest. Verified: Lint no longer reports `MissingApplicationIcon`; the App info page shows the icon (screenshot `c7-app-icon.png`). Commit "Fix F5: add an adaptive app icon". |
 
 ### Features beyond the spec
 

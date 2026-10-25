@@ -94,4 +94,4 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **What the AI did:** created the project skeleton (Part B, 2026-10-24) and described it as equivalent to Android Studio's "Empty Activity" template, but left out the launcher icon that the template includes.
 - **How it was noticed:** Android Lint in the code review (Part C, item 7): `MissingApplicationIcon` – "Should explicitly set android:icon, there is no default".
 - **Impact:** the app shows Android's generic placeholder icon on the home screen and in the notification shade.
-- **Correction:** recorded as a candidate for the fixes after the review.
+- **Correction:** fixed as review finding F5: an adaptive launcher icon (vector, Android 8.0+) was added; Lint no longer reports `MissingApplicationIcon`.
