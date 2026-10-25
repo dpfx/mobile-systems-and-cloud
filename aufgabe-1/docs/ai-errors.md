@@ -116,3 +116,10 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **How it was noticed:** while preparing `measurements.md`, the AI computed what 32-bit float rounding of the walk's positions would produce: steps of 11.03 m and 11.45 m (not alternating) and a total of 111.1 m, while the app measured 111.2 m in all runs.
 - **Impact:** none on the results; the wrong explanation would have gone into the measurement report.
 - **Correction:** hypothesis dropped. `measurements.md` reports the observed step sizes with a new log excerpt (`measurements/gps-steps.log`) and states that the mechanism was not determined; `HANDOFF.md` was corrected.
+
+## 17 · 2026-10-25 20:32 · Reasoning · Proposed research beyond what the task asks
+
+- **What the AI did:** in Part E, it proposed backing "recognition on the device is feasible" with a scientific source and a model size, and spent several searches on a paper (Anguita et al. 2012) whose abstract it couldn't retrieve. The idea came from a `TODO.md` item the AI itself had written in an earlier session ("e.g. for model size"), not from the task PDF.
+- **How it was noticed:** the user asked "do we really have to go into that detail? what does the task description say?". The PDF only asks for a justified choice along four criteria and which data is personal.
+- **Impact:** time spent on searches; nothing went into the docs.
+- **Correction:** the feasibility source was dropped and the `TODO.md` item reworded to "citable sources for the claims made"; research is now checked against the PDF's wording before it is proposed.

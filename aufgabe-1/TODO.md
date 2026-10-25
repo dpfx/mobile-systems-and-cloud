@@ -29,9 +29,9 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [x] Citable sources for the claims made
 
 ## AI log (`docs/ai-log.md`, max. one page)
-- [ ] Table from the template on page 4 of the PDF
-- [ ] Answers: where the AI saved time; where it made errors and how they were noticed (source: `docs/ai-errors.md`)
-- [ ] Inputs named: spec with process wrapper, CLAUDE.md files, guidelines
+- [x] Table from the template on page 4 of the PDF
+- [x] Answers: where the AI saved time; where it made errors and how they were noticed (source: `docs/ai-errors.md`)
+- [x] Inputs named: spec with process wrapper, CLAUDE.md files, guidelines
 
 ## Environment info
 - [ ] Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5

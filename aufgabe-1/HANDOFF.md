@@ -1,4 +1,4 @@
-# Handoff – Task 1 (state of 2026-10-25, ~20:40 CET)
+# Handoff – Task 1 (state of 2026-10-25, ~20:51 CET)
 
 Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and `TODO.md`. The working rules (walk the user through first, one decision at a time, Claude never commits, English only, ask before touching files on C:) are in the CLAUDE.md files and in Claude's memory.
 
@@ -11,7 +11,7 @@ Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and 
 | C – Review | done: `docs/review.md`, 8 checklist items, findings F1–F5 all fixed (one commit each) |
 | D – Measurements | done: `docs/measurements.md` (full version; condensed only for the PDF, see next steps) |
 | E – Assessment | done: `docs/assessment.md` (full version; condensed only for the PDF) |
-| AI log | open (`docs/ai-errors.md` has 16 entries as raw material) |
+| AI log | done: `docs/ai-log.md` (one page; raw material in `docs/ai-errors.md`, 17 entries) |
 | PDF, submission | open |
 
 ## Part D – what was settled in the session of 2026-10-25 evening
@@ -29,16 +29,29 @@ Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and 
 - No feasibility or model-size source: the PDF doesn't ask for it, and the doc makes no such claim. Anguita et al. 2012 (hardware-friendly SVM on smartphones) was considered and dropped.
 - Sources were checked against their text; EUR-Lex blocks scripts, so the GDPR wording was checked on a mirror of the official text (gdpr-info.eu).
 
+## AI log – decisions (2026-10-25 evening)
+
+- One row per task part (6 rows); per row the 1–2 most significant errors, counts and how they were noticed in the answer below; F1 and F2 named as gaps in our own spec, not AI errors.
+- The "key prompts" column was summarised from the user's own messages in the Claude Code session logs (user turns only).
+- `ai-log.md` is the only doc that must already fit the PDF limit (one page). Test render: one page at A4, 2 cm margins, 9.5 pt text, 8 pt table; the final stylesheet must keep it on one page.
+- Only Claude Code is listed; if the user used any other AI tool for the task, it needs its own row.
+
 ## Next steps
 
-1. User commits the staged state (`assessment.md`, `TODO.md`, this file).
-2. AI log (`docs/ai-log.md`, max. one page): template table from page 4 of the PDF, answers to "where did the AI save time / make errors"; inputs to name: spec + process wrapper, CLAUDE.md files, guidelines.
-3. Environment info: Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5.
-4. PDF: pandoc + WeasyPrint, stylesheet in the repo, spec page = `specification.md` plus a short amendments table, consider retaking screenshots 03–06 (they show the old placeholder icon), title page filled in by the user. Condense from the full docs (PDF rule: "as little as possible, as much as necessary"):
+1. User commits the staged state (`ai-log.md`, `ai-errors.md` entry 17, `TODO.md`, this file).
+2. Environment info: Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5.
+3. PDF: pandoc + WeasyPrint, stylesheet in the repo, spec page = `specification.md` plus a short amendments table, consider retaking screenshots 03–06 (they show the old placeholder icon), title page filled in by the user.
+   **First, before any trimming, review these interpretive claims with the user, one at a time** (user's request, 2026-10-25):
+   1. `assessment.md` §2: GDPR classifications are interpretation, not legal advice (shock warnings "can become" data concerning health; barometer personal "mainly in combination").
+   2. `assessment.md` §1: the radio figures (1.5 s / >2 s wake-up, "significant power") are for a 3G radio; they support only the qualitative point.
+   3. `measurements.md` §5: the straight-line estimate through two points (2.45 % fixed share, "about a fifth") is extrapolated.
+   4. `measurements.md` §4: the read time of `NORMAL` run 4 (~15:33:17 UTC) is inferred from the script's pacing and the CSV's file time, not recorded.
+
+   Then condense from the full docs (PDF rule: "as little as possible, as much as necessary"):
    - `review.md`
    - `measurements.md`: drop the overview table; barometer step test (2.1) down to two sentences; event-rate explanation down to the `dumpsys` excerpt plus the "only a suggested delay" quote, AOSP as a one-clause link, no `SENSOR_DELAY_UI` footnote; method paragraph in 3 sentences; in section 5, drop the straight-line estimate (2.45 % fixed share, "even 5 Hz would save only about a fifth") and keep the measured ratio (−16.5 % CPU for −70 % events).
    - `assessment.md`: scenario in one sentence; GDPR Art. 4(1) quoted only up to "location data"; the paragraphs on what the cloud is used for and on the own model one sentence each.
-5. Code ZIP or GitHub link (repo `dpfx/mobile-systems-and-cloud`, public), push, upload to Ilias.
+4. Code ZIP or GitHub link (repo `dpfx/mobile-systems-and-cloud`, public), push, upload to Ilias.
 
 ## Practical notes
 
