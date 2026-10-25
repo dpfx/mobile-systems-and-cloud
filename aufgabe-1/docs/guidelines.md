@@ -3,7 +3,7 @@
 Pinned best practices for this app. Each rule was checked against the official documentation on **2026-10-24**.
 
 How they're used:
-- **Spec (Part A):** the most important rules go into the spec as non-functional requirements (see [Candidates for the spec](#candidates-for-the-spec)).
+- **Spec (Part A):** the rules that shape the design are in the spec as requirements, e.g. ARCH-1 to ARCH-3 and SENS-3 (section 7), SENS-1 (section 5), UI-2 (section 2), LOG-1 (section 6).
 - **Generation (Part B):** the full list was given to the generating AI as coding rules, alongside the spec.
 - **Review (Part C):** the full list is the review checklist and extends the checklist in the task PDF. Every finding cites a rule ID.
 
@@ -68,16 +68,6 @@ Levels: **MUST** = "Strongly recommended" in the source, **SHOULD** = "Recommend
 | UI and memory: redraw per reading, unbounded lists | UI-1, UI-2 |
 | APIs and libraries: deprecated or non-existent | CODE-2, SENS-5 |
 | Privacy: location stored or logged | PRIV-1, LOG-1 |
-
-## Candidates for the spec
-
-The spec is limited to one page, so it only carries the rules that shape the design. Final choice when writing the spec:
-- ARCH-1 + ARCH-2: repository → ViewModel → UI with Flows
-- SENS-1: listeners only while visible, including the 5 s trade-off
-- UI-2: ring-buffer size and UI refresh rate
-- LOG-1: tags per stage
-
-The PDF already requires the spec to cover missing sensors, denied permissions and background behaviour, so SENS-2 and PERM-2 are covered there anyway.
 
 [ar-layer]: https://developer.android.com/topic/architecture/recommendations#layered-architecture
 [ar-ui]: https://developer.android.com/topic/architecture/recommendations#ui-layer

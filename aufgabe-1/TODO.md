@@ -44,4 +44,4 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [ ] Upload to Ilias
 
 ## Housekeeping
-- [ ] Optional: remove the outdated "Candidates for the spec" section from `docs/guidelines.md`
+- [x] Optional: remove the outdated "Candidates for the spec" section from `docs/guidelines.md`
