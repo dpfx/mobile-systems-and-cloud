@@ -220,7 +220,7 @@ Even rounded to 3 decimals, the debug log is a movement trace with ≈ 100 m pre
 | **Location** | `ui/SensorLabViewModel.kt:153, 163, 170` |
 | **Problem** | If a sensor or GPS is missing, its source returns without a log line. Spec section 6 requires state changes to be logged always. |
 | **Impact** | Seen in item 3: with no barometer, the log says nothing about it, so the log alone can't tell a missing sensor from one that sends no events. |
-| **Fix** | Open: decided after the review. |
+| **Fix** | Each source logs a state line before it returns: `ChainLog.state(ChainLog.SENSOR, …, "not available on this device")` in `runAccelerometer()`, `runBarometer()` and `runGps()`. Verified with the item 3 setup (barometer removed from the emulator, restored afterwards): `14:53:41.982 I/SensorLab.Sensor: Barometer: not available on this device`, followed by the normal registration of the other sources; 0 crashes. Commit "Fix F3: log missing sensors". |
 
 ### F4 – Tapping the notification opens a second screen with fresh data
 

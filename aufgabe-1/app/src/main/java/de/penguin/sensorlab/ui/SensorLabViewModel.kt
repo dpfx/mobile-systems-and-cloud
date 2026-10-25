@@ -150,7 +150,10 @@ class SensorLabViewModel(
     // ---------------------------------------------------------------- Sources
 
     private suspend fun runAccelerometer() {
-        if (!accelerometer.isAvailable) return
+        if (!accelerometer.isAvailable) {
+            ChainLog.state(ChainLog.SENSOR, ACC, "not available on this device")
+            return
+        }
         magnitudeHistory.startNewSegment() // gap in the chart after a pause
         // A new rate re-registers the listener.
         accelerometerRate.collectLatest { rate ->
@@ -160,14 +163,20 @@ class SensorLabViewModel(
     }
 
     private suspend fun runBarometer() {
-        if (!barometer.isAvailable) return
+        if (!barometer.isAvailable) {
+            ChainLog.state(ChainLog.SENSOR, BARO, "not available on this device")
+            return
+        }
         altitudeHistory.startNewSegment()
         barometerRateMeter.clear()
         barometer.samples(BAROMETER_RATE.sensorDelay).collect { onBarometerSample(it) }
     }
 
     private suspend fun runGps() {
-        if (!location.hasGps) return
+        if (!location.hasGps) {
+            ChainLog.state(ChainLog.SENSOR, GPS, "not available on this device")
+            return
+        }
         distanceHistory.startNewSegment()
         // Updates run only with a location permission; a new permission restarts them.
         locationPermission.collectLatest { permission ->
