@@ -34,7 +34,7 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [x] Inputs named: spec with process wrapper, CLAUDE.md files, guidelines
 
 ## Environment info
-- [ ] Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5
+- [x] Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5 (`docs/environment.md`)
 
 ## Submission
 - [ ] Condense `review.md`, `measurements.md` and `assessment.md` for the PDF, always from the full docs (trim list in `HANDOFF.md`)

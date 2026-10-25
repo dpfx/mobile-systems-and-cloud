@@ -1,4 +1,4 @@
-# Handoff – Task 1 (state of 2026-10-25, ~20:51 CET)
+# Handoff – Task 1 (state of 2026-10-25, ~20:57 CET)
 
 Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and `TODO.md`. The working rules (walk the user through first, one decision at a time, Claude never commits, English only, ask before touching files on C:) are in the CLAUDE.md files and in Claude's memory.
 
@@ -12,6 +12,7 @@ Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and 
 | D – Measurements | done: `docs/measurements.md` (full version; condensed only for the PDF, see next steps) |
 | E – Assessment | done: `docs/assessment.md` (full version; condensed only for the PDF) |
 | AI log | done: `docs/ai-log.md` (one page; raw material in `docs/ai-errors.md`, 17 entries) |
+| Environment info | done: `docs/environment.md` (verified 2026-10-25; Claude Code version and model from the session logs, since the `claude` CLI on the PATH is a different, older build) |
 | PDF, submission | open |
 
 ## Part D – what was settled in the session of 2026-10-25 evening
@@ -38,9 +39,8 @@ Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and 
 
 ## Next steps
 
-1. User commits the staged state (`ai-log.md`, `ai-errors.md` entry 17, `TODO.md`, this file).
-2. Environment info: Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5.
-3. PDF: pandoc + WeasyPrint, stylesheet in the repo, spec page = `specification.md` plus a short amendments table, consider retaking screenshots 03–06 (they show the old placeholder icon), title page filled in by the user.
+1. User commits the staged state (`environment.md`, `TODO.md`, this file).
+2. PDF: pandoc + WeasyPrint, stylesheet in the repo, spec page = `specification.md` plus a short amendments table, consider retaking screenshots 03–06 (they show the old placeholder icon), title page filled in by the user.
    **First, before any trimming, review these interpretive claims with the user, one at a time** (user's request, 2026-10-25):
    1. `assessment.md` §2: GDPR classifications are interpretation, not legal advice (shock warnings "can become" data concerning health; barometer personal "mainly in combination").
    2. `assessment.md` §1: the radio figures (1.5 s / >2 s wake-up, "significant power") are for a 3G radio; they support only the qualitative point.
@@ -51,7 +51,8 @@ Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and 
    - `review.md`
    - `measurements.md`: drop the overview table; barometer step test (2.1) down to two sentences; event-rate explanation down to the `dumpsys` excerpt plus the "only a suggested delay" quote, AOSP as a one-clause link, no `SENSOR_DELAY_UI` footnote; method paragraph in 3 sentences; in section 5, drop the straight-line estimate (2.45 % fixed share, "even 5 Hz would save only about a fifth") and keep the measured ratio (−16.5 % CPU for −70 % events).
    - `assessment.md`: scenario in one sentence; GDPR Art. 4(1) quoted only up to "location data"; the paragraphs on what the cloud is used for and on the own model one sentence each.
-4. Code ZIP or GitHub link (repo `dpfx/mobile-systems-and-cloud`, public), push, upload to Ilias.
+   - `environment.md`: the PDF requires only device, Android version, AI tool and model; the host and toolchain rows and the sources line are optional.
+3. Code ZIP or GitHub link (repo `dpfx/mobile-systems-and-cloud`, public), push, upload to Ilias.
 
 ## Practical notes
 
