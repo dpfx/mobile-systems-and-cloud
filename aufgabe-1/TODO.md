@@ -24,9 +24,9 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [x] Event rate at `SENSOR_DELAY_NORMAL` vs. `SENSOR_DELAY_GAME`, compared with the requested rate; consequence for energy use
 
 ## Part E – Assessment (`docs/assessment.md`)
-- [ ] Edge vs. cloud for activity recognition: latency, energy, offline capability, privacy
-- [ ] Which sensor data is personal or allows conclusions about a person
-- [ ] Citable sources, e.g. for model size and on-device recognition
+- [x] Edge vs. cloud for activity recognition: latency, energy, offline capability, privacy
+- [x] Which sensor data is personal or allows conclusions about a person
+- [x] Citable sources for the claims made
 
 ## AI log (`docs/ai-log.md`, max. one page)
 - [ ] Table from the template on page 4 of the PDF
@@ -37,7 +37,7 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [ ] Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5
 
 ## Submission
-- [ ] Condense `review.md` and `measurements.md` for the PDF, always from the full docs (trim list in `HANDOFF.md`, next step 5)
+- [ ] Condense `review.md`, `measurements.md` and `assessment.md` for the PDF, always from the full docs (trim list in `HANDOFF.md`)
 - [ ] PDF built with pandoc + WeasyPrint; stylesheet in the repo
 - [ ] Title page with name and matriculation number (filled in by the student)
 - [ ] File name `aufgabe_1_<surname>.pdf`
