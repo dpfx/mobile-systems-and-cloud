@@ -124,7 +124,7 @@ The Δh deviation comes from the emulator, not the app: the app's log shows that
 | **Location** | `processing/DistanceTracker.kt:60-65` |
 | **Problem** | Every step longer than the fix's accuracy is added, however implausible. The code follows the spec, which sets no limit (spec gap, not an AI error). |
 | **Impact** | On the emulator, a jump from the default position (Mountain View) to the test position (Albstadt) within 1.7 s was counted as **9,359,974 m** (log: `counted: step 9359974.0 m > accuracy 5.0 m`). On a real phone, GPS outliers of tens of metres with an optimistic accuracy value inflate the distance in the same way. |
-| **Fix** | Open: decided after the review. |
+| **Fix** | A step that implies more than 10 m/s since the last counted fix is no longer counted; the new fix becomes the reference (`processing/DistanceTracker.kt`, new decision `Implausible`); spec amendment A3. Verified on the emulator: after a Reset, 17 s at one position and a move of 0.001° north gave `counted: step 111.2 m > accuracy 5.0 m` (≈ 6.5 m/s); the jump to Mountain View 7 s later gave `rejected: step 9359894.0 m in 7.0 s = 1336250.1 m/s > 10 m/s, new reference`, and the distance stayed at 111.2 m. Commit "Fix F1: reject implausible GPS steps". |
 
 ## 5. Sampling rate and energy (SENS-3, SENS-4)
 

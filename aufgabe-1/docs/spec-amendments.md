@@ -19,3 +19,12 @@
 | **Amended** | "…and, if the **Shock alerts** switch is on, a notification (tapping it opens the app); at most once per 30 s." |
 | **Reason** | Android requires every notification to respond to a tap ("Every notification must respond to a tap, usually to open an activity in your app", [Build a notification › Set the notification's tap action](https://developer.android.com/develop/ui/views/notifications/build-notification#tap)). The generated code added this behaviour on its own, but opened a second screen with fresh data. |
 | **Finding** | F4 (`review.md`, section 9) |
+
+## A3 · 2026-10-25 · Section 1 (Sensors, quantities, rates) · Plausibility limit for the distance
+
+| | |
+|---|---|
+| **Original** | "Distance uses only fixes with accuracy ≤ 20 m and grows only when the step from the last counted fix exceeds the new fix's accuracy." |
+| **Amended** | "Distance uses only fixes with accuracy ≤ 20 m and grows only when the step from the last counted fix exceeds the new fix's accuracy and implies at most 10 m/s; a faster step adds nothing and the new fix becomes the reference." |
+| **Reason** | Without a plausibility check, a position jump was counted in full: 9,359,974 m on the emulator. 10 m/s (36 km/h) is generous for walking or running but well below typical GPS outlier jumps. |
+| **Finding** | F1 (`review.md`, item 4) |
