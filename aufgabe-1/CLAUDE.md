@@ -2,6 +2,8 @@
 
 Task description: `../aufgabe-1.pdf`, pages 6–7. Deadline: 2026-10-26 (upload on Ilias).
 
+Progress is tracked in `TODO.md`; update it when a step is done.
+
 ## The spec is the source of truth
 - What the app does is defined **only** by `docs/specification.md` (Part A; it is also the prompt that generates the app).
 - Don't add features, sensors, libraries or behaviour that the spec doesn't require. If the spec is unclear or incomplete, ask instead of guessing, and record the gap so the spec can be improved.
