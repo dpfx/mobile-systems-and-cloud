@@ -12,8 +12,8 @@
 | 2 | Permissions: requested at runtime, denial handled | correct | – |
 | 3 | Missing sensors: no crash | correct | – |
 | 4 | Units and formulas | correct, but distance without plausibility check | F1 |
-| 5 | Sampling rate and energy | open | |
-| 6 | UI and memory: redraw per reading, unbounded lists | open | |
+| 5 | Sampling rate and energy | appropriate | – |
+| 6 | UI and memory: redraw per reading, unbounded lists | correct | – |
 | 7 | APIs and libraries: deprecated or non-existent | open | |
 | 8 | Privacy: location stored or logged | open | |
 
@@ -123,6 +123,49 @@ The Δh deviation comes from the emulator, not the app: the app's log shows that
 | **Problem** | Every step longer than the fix's accuracy is added, however implausible. The code follows the spec, which sets no limit (spec gap, not an AI error). |
 | **Impact** | On the emulator, a jump from the default position (Mountain View) to the test position (Albstadt) within 1.7 s was counted as **9,359,974 m** (log: `counted: step 9359974.0 m > accuracy 5.0 m`). On a real phone, GPS outliers of tens of metres with an optimistic accuracy value inflate the distance in the same way. |
 | **Fix** | Open: decided after the review. |
+
+## 5. Sampling rate and energy (SENS-3, SENS-4)
+
+**Verdict: appropriate for the purpose.**
+
+**How we know – code, plus the measurements from items 1 and 4:**
+
+| Aspect | Code | Assessment |
+|---|---|---|
+| Accelerometer at `SENSOR_DELAY_GAME` (50 Hz) | `ui/SensorLabViewModel.kt:51, 156-159` | Needed for the shock warning: an impact lasts only tens of milliseconds, at 5 Hz a peak can fall between two samples. The card says so when the rate is switched to `NORMAL`. |
+| Barometer at `SENSOR_DELAY_NORMAL` (5 Hz) | `ui/SensorLabViewModel.kt:386` | Pressure changes slowly; `NORMAL` is the slowest of Android's presets. |
+| GPS: 1 fix per second, high accuracy | `data/LocationRepository.kt:84-86, 124` | Matches walking speed (≈ 1.4 m/s). GPS is the largest energy consumer and runs only while the screen is visible (item 1). |
+| No `SENSOR_DELAY_FASTEST`, no `HIGH_SAMPLING_RATE_SENSORS` | `AndroidManifest.xml`, `ui/SensorLabUiState.kt:8-13` | No more data than needed (SENS-4). |
+| `onSensorChanged()` only copies and forwards | `data/SensorRepository.kt:46-48` | Little work per event (SENS-3). |
+| Requested rates reach Android unchanged | sensorservice (item 1) | `samplingPeriod= 20000us` / `200000us`. |
+| No batching (`maxReportLatencyUs`) | – | Not needed: batching mainly saves energy while the screen is off and the processor could sleep; this app only measures with the screen on, and batching would delay the shock warning. |
+
+At `NORMAL`, Android delivers 15 Hz instead of the requested 5 Hz (item 4), so switching to `NORMAL` saves less than the factor 10 suggests. The consequences for energy use are examined in Part D.
+
+## 6. UI and memory (UI-1, UI-2)
+
+**Verdict: correct.** The UI is not redrawn per reading, and all buffers are bounded.
+
+**How we know – code:**
+
+| Aspect | Code | Assessment |
+|---|---|---|
+| UI decoupled from the sensors | `ui/SensorLabViewModel.kt:85-92` | Readings arrive at up to 50 Hz; the screen gets a new state snapshot every 100 ms (≤ 10/s, spec section 2). |
+| Chart history | `processing/History.kt:21, 69`, `processing/RingBuffer.kt` | Ring buffer of 600 points per quantity (60 s × 10/s); new points overwrite the oldest. |
+| Rate measurement | `processing/RateMeter.kt:10-15` | Keeps only the timestamps of the last 2 s. |
+| Log sampling | `log/ChainLog.kt:24` | One entry per tag and source (fixed set of keys). |
+
+**How we know – emulator (2026-10-25):**
+
+| Measurement | Result |
+|---|---|
+| Frames rendered in 10 s on the Values tab, constant inputs (`dumpsys gfxinfo`) | 2: when nothing changes, nothing is redrawn |
+| Frames rendered in 10 s on the Chart tab, constant inputs | 99 (≈ 10/s): the time axis moves, so the charts are redrawn per snapshot, not per reading (that would be ≈ 500) |
+| App's Java heap on the Chart tab, every 20 s for 2 min (`dumpsys meminfo`) | 12.1 → 15.4 → 12.0 → 12.5 → 16.3 → 16.5 → 13.7 MB: allocation and garbage collection, no upward trend |
+
+The emulator reports every frame as "janky", including the two idle frames on the Values tab; this value is not meaningful on the emulator and is not used.
+
+Optimisation note, not a finding: the chart data (up to 3 × 600 points) is rebuilt for every snapshot, also while the Values tab is shown. It doesn't cause redraws there, only some extra allocation, visible in the heap's sawtooth.
 
 ## Candidate findings (to be checked under the remaining items)
 - **Tapping the notification may stack a second screen** (`data/ShockNotifier.kt:50-55`): the intent has no launch flags. Not in the spec (generation report, assumption 6).
