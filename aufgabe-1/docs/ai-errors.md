@@ -74,3 +74,17 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **How it was noticed:** the image could not be opened for checking.
 - **Impact:** two review screenshots in the scratchpad were unusable; one was retaken, the other wasn't needed.
 - **Correction:** binary output (screenshots) is written without any filter; the helper is only used for text.
+
+## 11 · 2026-10-25 14:42 · Tooling · Test commands stacked several copies of the app's screen
+
+- **What the AI did:** during the Part C emulator checks, it "returned" to the app with `am start -n …/.MainActivity`. Without the launcher's action and category, this creates a new `MainActivity` on top of the existing one each time, and each instance has its own ViewModel. In addition, its button finder added a trailing space to labels, so `^Grant$` never matched and a Back key press hit the wrong screen.
+- **How it was noticed:** the activity in the foreground had a different ID than the one Back returned to; `dumpsys activity` then listed four `MainActivity` instances.
+- **Impact:** the permission test had to be repeated. In the lifecycle check (review item 1), "back to the app" opened a new instance instead of resuming; the core result (listeners only active while visible) still holds, but that step is repeated with the proper launch.
+- **Correction:** the app is now started like the launcher does it (`-a MAIN -c LAUNCHER`, which brings the existing task to the front), the instance count is checked, and labels are trimmed before matching.
+
+## 12 · 2026-10-25 14:50 · Tooling · Ran a test step from a state that couldn't reach it
+
+- **What the AI did:** in the permission check (Part C), it tried to test "approximate location only" right after the permanent-denial test. The app's ViewModel still remembered the denial, so the card showed "Grant" instead of "Enable GPS" and the step was skipped; the next step then ran with a leftover GPS position.
+- **How it was noticed:** the script reported "NOT FOUND: Enable GPS".
+- **Impact:** the step had to be repeated with a fresh app process.
+- **Correction:** each test step that needs a clean state now starts from one (permission revoked, which also ends the app process), and the expected starting screen is checked first.
