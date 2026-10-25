@@ -95,3 +95,17 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **How it was noticed:** Android Lint in the code review (Part C, item 7): `MissingApplicationIcon` – "Should explicitly set android:icon, there is no default".
 - **Impact:** the app shows Android's generic placeholder icon on the home screen and in the notification shade.
 - **Correction:** fixed as review finding F5: an adaptive launcher icon (vector, Android 8.0+) was added; Lint no longer reports `MissingApplicationIcon`.
+
+## 14 · 2026-10-25 16:20 · Tooling · Measurement script's checks failed because of pipefail and grep -q
+
+- **What the AI did:** wrote `tools/measure.sh` with `set -o pipefail` and checks of the form `adb … | grep -q …`. `grep -q` stops reading at the first match, the `adb` command then fails with a broken pipe, and `pipefail` turns that into a failed check, exactly when the match was found. The AI first suspected a sleeping emulator screen.
+- **How it was noticed:** the first run stopped during setup with "Sensor Lab is not in front", although the device state showed the app in front and the screen awake.
+- **Impact:** no data; the run stopped after 3 seconds.
+- **Correction:** the checks capture the output in a variable first and then test it, so no pipe is cut short; the setup also wakes the screen before the first check.
+
+## 15 · 2026-10-25 17:00 · Tooling · Measurement script walked the first GPS step too fast
+
+- **What the AI did:** in `tools/measure.sh`, the GPS walk started 2 s after Reset, while all other steps were 4 s apart. The first fix after Reset (the start point) sometimes arrived up to 1.5 s late, so the first step of 11 m came only 1 s after it.
+- **How it was noticed:** two of five runs measured 100.3 m instead of 111.2 m. A live recording of the app's log showed `rejected: step 10.9 m in 1.0 s = 10.9 m/s > 10 m/s`: the app correctly applied the plausibility limit (amendment A3) to the test's own too-fast step.
+- **Impact:** the first GPS results were unusable as a measurement of the walk; the jitter and jump results were not affected.
+- **Correction:** the script now waits 6 s after Reset, so the first step is as slow as the others; the GPS section was measured again.

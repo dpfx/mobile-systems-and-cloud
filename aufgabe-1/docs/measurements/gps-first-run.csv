@@ -1,0 +1,6 @@
+run,walk_m,jitter_counted_steps,after_jitter_m,jump_rejected_logged,after_jump_m
+1,111.2,0,111.2,1,111.2
+2,100.3,0,100.3,1,100.3
+3,111.2,0,111.2,1,111.2
+4,100.3,0,100.3,1,100.3
+5,111.2,0,111.2,1,111.2

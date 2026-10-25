@@ -1,0 +1,11 @@
+setting,run,requested_hz,app_measured_hz,android_events,android_span_s,android_rate_hz,sensor_connections
+GAME,1,50,50.0,50,0.980,50.0,3
+GAME,2,50,50.0,50,0.980,50.0,3
+GAME,3,50,50.0,50,0.980,50.0,3
+GAME,4,50,50.0,50,0.980,50.0,3
+GAME,5,50,50.0,50,0.980,50.0,3
+NORMAL,1,5,15.0,50,3.267,15.0,3
+NORMAL,2,5,15.0,50,3.267,15.0,3
+NORMAL,3,5,15.0,50,3.267,15.0,3
+NORMAL,4,5,24.2,50,2.053,23.9,3
+NORMAL,5,5,15.0,50,3.267,15.0,3
