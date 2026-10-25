@@ -2,7 +2,7 @@
 
 Chronological record of every error the AI (Claude Code, Claude Opus 5.5) made in this task, with how it was noticed and how it was corrected. Times are CEST. This is the raw material for the one-page AI log (`ai-log.md`), in particular its question "Where did the AI make errors, and how did you notice them?".
 
-Categories: **Build** (build configuration, dependencies), **Code** (app code), **Knowledge** (outdated or wrong facts), **Reasoning** (flawed argument or justification), **Workflow** (acting against how the user wants to work).
+Categories: **Build** (build configuration, dependencies), **Code** (app code), **Knowledge** (outdated or wrong facts), **Reasoning** (flawed argument or justification), **Tooling** (commands and scripts the AI runs), **Workflow** (acting against how the user wants to work).
 
 ## 1 · 2026-10-24 16:11 · Workflow · Committed without the user reviewing
 
@@ -39,3 +39,10 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **How it was noticed:** the user (17:37) pointed out that the app only measures while it is on screen, so the phone is unlocked and in the hand, not in a pocket; a drop means the phone slipped out of the hand.
 - **Impact:** a weak argument nearly went unchallenged into the design; it also hid that the 25 m/s² rule detects an impact on the *phone* (e.g. a dropped phone), not a fall of the *person*.
 - **Correction:** the notification is kept because the task requires it (Part A "Benachrichtigung", Part C notification permission); the warning was renamed to "Strong shock detected" (switch: "Shock alerts") so it claims only what the sensor can tell.
+
+## 6 · 2026-10-25 13:41 · Tooling · Created and staged a doc with an empty prompt
+
+- **What the AI did:** built `docs/generation-prompt.md` with a shell script that copied the prompt from a temporary file. The temporary file had been deleted overnight; the script didn't stop on the error, so it created the file with an empty prompt block and staged it.
+- **How it was noticed:** the AI read the script's output (`No such file or directory`) before presenting the result.
+- **Impact:** none; nothing was committed.
+- **Correction:** the prompt was taken from the Claude Code session log instead (exactly what the sub-agent received), checked to be identical to the committed spec, and the file was rebuilt with a script that stops on any error.
