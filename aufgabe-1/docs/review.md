@@ -17,6 +17,8 @@
 | 7 | APIs and libraries: deprecated or non-existent | correct, but one library not declared | F2 |
 | 8 | Privacy: location stored or logged | correct | – |
 
+Beyond the checklist: findings F3–F5 (section 9).
+
 ## 1. Lifecycle (SENS-1, ARCH-1)
 
 **Verdict: correct.** GPS location updates are checked under item 2, because they need the location permission.
@@ -177,7 +179,7 @@ Optimisation note, not a finding: the chart data (up to 3 × 600 points) is rebu
 |---|---|
 | Non-existent APIs or versions | none: the project builds cleanly from scratch (`./gradlew clean assembleDebug`). |
 | Deprecated APIs | none: a full recompile with all warnings shows 0 compiler warnings. The generation report notes that the deprecated Vico function `lineSeries` was avoided in favour of `lineModel`. |
-| Android Lint (`lintDebug`) | 2 warnings, both from the skeleton, not from the generated code: newer Gradle available (9.8.2; 9.6.1 was chosen as AGP 9.4's default) and no app icon (`MissingApplicationIcon`, see "Beyond the checklist"). |
+| Android Lint (`lintDebug`) | 2 warnings, both from the skeleton, not from the generated code: newer Gradle available (9.8.2; 9.6.1 was chosen as AGP 9.4's default) and no app icon (`MissingApplicationIcon`, finding F5 in section 9). |
 | Pinned vs. latest stable version (2026-10-25) | AGP 9.4.1, Kotlin 2.4.21, Compose BOM 2026.09.00, activity-compose 1.13.0, core 1.19.1, lifecycle 2.11.0, Vico 3.3.1: all current. |
 | Suppressed warnings | All four justified: `MissingPermission` in `data/ShockNotifier.kt:46` (`canNotify()` checked right before) and `data/LocationRepository.kt:66` (permission checked inside, `SecurityException` caught); `UNCHECKED_CAST` in `processing/RingBuffer.kt:34` (only items of type `T` are stored); `InlinedApi` in `data/ShockNotifier.kt:35`: the bytecode of `ContextCompat.checkSelfPermission` (androidx.core 1.19.1) shows that below API 33 it answers `POST_NOTIFICATIONS` with `areNotificationsEnabled()`, as the comment claims. |
 
@@ -209,10 +211,46 @@ Optimisation note, not a finding: the chart data (up to 3 × 600 points) is rebu
 
 Even rounded to 3 decimals, the debug log is a movement trace with ≈ 100 m precision; this is what the spec allows and is discussed in Part E.
 
-## Candidate findings (to be checked under the remaining items)
-- **Tapping the notification may stack a second screen** (`data/ShockNotifier.kt:50-55`): the intent has no launch flags. Not in the spec (generation report, assumption 6).
-- **Features beyond the spec:** Dismiss button on the banner, notification tap opens the app (generation report, assumption 6).
-- **All processing on the main thread** (generation report, assumption 13).
-- **`SensorLab.Sensor` lines logged in the ViewModel**, not where the events arrive (generation report, assumption 14).
-- **Hard-coded UI texts; no app icon** (Lint `MissingApplicationIcon`; the icon was left out of the skeleton, see `ai-errors.md` entry 13).
-- **A missing sensor is not logged** (`ui/SensorLabViewModel.kt:153, 163`): with no barometer the app logs nothing about it, so the log alone can't tell "missing" from "silent". Spec section 6 asks for state changes to be logged.
+## 9. Beyond the checklist
+
+### F3 – A missing sensor is not logged
+
+| | |
+|---|---|
+| **Location** | `ui/SensorLabViewModel.kt:153, 163, 170` |
+| **Problem** | If a sensor or GPS is missing, its source returns without a log line. Spec section 6 requires state changes to be logged always. |
+| **Impact** | Seen in item 3: with no barometer, the log says nothing about it, so the log alone can't tell a missing sensor from one that sends no events. |
+| **Fix** | Open: decided after the review. |
+
+### F4 – Tapping the notification opens a second screen with fresh data
+
+| | |
+|---|---|
+| **Location** | `data/ShockNotifier.kt:50-55` |
+| **Problem** | The notification starts `MainActivity` without launch flags, so Android creates a new instance on top of the open one. Each instance has its own ViewModel (`viewModel()` in `ui/SensorLabScreen.kt:55` is scoped to the activity). Opening the app from the notification is not in the spec; the generating AI added it (generation report, assumption 6). |
+| **Impact** | Emulator, 2026-10-25: with the app open, a tap on the notification at 14:26:08 created a new instance (`wm_on_create_called` for `248646612`) on top of `146686399`; one Back returned to the original. By the code, the new screen starts with Δh and distance at 0, Shock alerts off and an empty chart, while the real data sit underneath. |
+| **Fix** | Open: decided after the review. |
+
+### F5 – No app icon
+
+| | |
+|---|---|
+| **Location** | `app/src/main/AndroidManifest.xml:21` (no `android:icon`) |
+| **Problem** | The project skeleton, created by the AI before the spec, has no launcher icon, although it was described as equivalent to Android Studio's "Empty Activity" template (`ai-errors.md`, entry 13). Lint: `MissingApplicationIcon`. |
+| **Impact** | Android's generic placeholder icon on the home screen and in the notification (screenshot `06-shock-notification.png`). |
+| **Fix** | Open: decided after the review. |
+
+### Features beyond the spec
+
+The generating AI reported both as assumptions (generation report, assumption 6):
+
+- a **Dismiss** button on the shock banner (`ui/SensorLabScreen.kt:168`): harmless;
+- opening the app by **tapping the notification** (`data/ShockNotifier.kt:49-55`): see F4.
+
+### Checked, not a finding
+
+| Point | Why not a finding |
+|---|---|
+| All processing runs on the main thread (generation report, assumption 13) | A few multiplications per event at ≤ 50 Hz; item 6 shows 2 frames in 10 s on the idle Values tab and a bounded heap. |
+| `SensorLab.Sensor` lines are written in the ViewModel, not in `onSensorChanged()` (assumption 14) | `onSensorChanged()` may only forward (SENS-3); the line still carries the event's own values and timestamp. |
+| UI texts in the code instead of string resources (assumption 15) | The app is English-only by spec; Lint reports nothing. |

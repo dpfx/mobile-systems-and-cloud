@@ -11,10 +11,10 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [x] Smoke test on the emulator with screenshots (`docs/screenshots/`)
 
 ## Part C – Code review (`docs/review.md`)
-- [ ] Review against the PDF checklist and `docs/guidelines.md`, including the 15 assumptions in `docs/generation-report.md`
-- [ ] Check on the emulator what the smoke test didn't cover: GPS permission flow, rate switch, Reset, pause in the background, missing sensor
-- [ ] At least 3 findings, each with location, problem, impact and fix
-- [ ] Points the AI got right, with how we know
+- [x] Review against the PDF checklist and `docs/guidelines.md`, including the 15 assumptions in `docs/generation-report.md`
+- [x] Check on the emulator what the smoke test didn't cover: GPS permission flow, rate switch, Reset, pause in the background, missing sensor
+- [x] At least 3 findings, each with location, problem, impact and fix
+- [x] Points the AI got right, with how we know
 - [ ] Fixes, one commit each
 
 ## Part D – Verification by measurement (`docs/measurements.md`)
