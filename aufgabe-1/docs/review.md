@@ -229,7 +229,7 @@ Even rounded to 3 decimals, the debug log is a movement trace with ≈ 100 m pre
 | **Location** | `data/ShockNotifier.kt:50-55` |
 | **Problem** | The notification starts `MainActivity` without launch flags, so Android creates a new instance on top of the open one. Each instance has its own ViewModel (`viewModel()` in `ui/SensorLabScreen.kt:55` is scoped to the activity). Opening the app from the notification is not in the spec; the generating AI added it (generation report, assumption 6). |
 | **Impact** | Emulator, 2026-10-25: with the app open, a tap on the notification at 14:26:08 created a new instance (`wm_on_create_called` for `248646612`) on top of `146686399`; one Back returned to the original. By the code, the new screen starts with Δh and distance at 0, Shock alerts off and an empty chart, while the real data sit underneath. |
-| **Fix** | Open: decided after the review. |
+| **Fix** | The notification now uses the app's launcher intent (`getLaunchIntentForPackage`), which brings the existing task to the front like the home-screen icon instead of creating a new instance; spec amendment A2 defines the tap behaviour. Verified on the emulator: with the app open, a tap leaves the same instance (`119463088`) in front with no new `wm_on_create_called`; from the home screen (shock within the 5 s grace period), a tap brings the same instance back (`wm_on_start_called` / `wm_on_resume_called` for `119463088`). Commit "Fix F4: notification tap reuses the open screen". |
 
 ### F5 – No app icon
 

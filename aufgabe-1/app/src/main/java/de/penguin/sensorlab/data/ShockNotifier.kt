@@ -4,13 +4,11 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.core.app.NotificationChannelCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import de.penguin.sensorlab.MainActivity
 import de.penguin.sensorlab.R
 
 /** Posts the "Strong shock detected" notification (spec section 3). */
@@ -46,13 +44,10 @@ class ShockNotifier(private val context: Context) {
     @SuppressLint("MissingPermission")
     fun notifyShock(text: String): Boolean {
         if (!canNotify()) return false
-        // Tapping the notification opens the app.
-        val openApp = PendingIntent.getActivity(
-            context,
-            0,
-            Intent(context, MainActivity::class.java),
-            PendingIntent.FLAG_IMMUTABLE,
-        )
+        // Tapping the notification brings the app to the front like the launcher icon does,
+        // so the open screen and its ViewModel are reused instead of a second screen being created.
+        val openApp = context.packageManager.getLaunchIntentForPackage(context.packageName)
+            ?.let { PendingIntent.getActivity(context, 0, it, PendingIntent.FLAG_IMMUTABLE) }
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_shock)
             .setContentTitle("Strong shock detected")
