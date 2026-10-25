@@ -1,6 +1,6 @@
 # AI errors – Task 1
 
-Chronological record of every error the AI (Claude Code, Claude Opus 5.5) made in this task, with how it was noticed and how it was corrected. Times are CEST. This is the raw material for the one-page AI log (`ai-log.md`), in particular its question "Where did the AI make errors, and how did you notice them?".
+Chronological record of every error the AI (Claude Code, Claude Opus 5.5) made in this task, with how it was noticed and how it was corrected. Times are local German time: CEST (UTC+2) until 2026-10-25 03:00, CET (UTC+1) afterwards. This is the raw material for the one-page AI log (`ai-log.md`), in particular its question "Where did the AI make errors, and how did you notice them?".
 
 Categories: **Build** (build configuration, dependencies), **Code** (app code), **Knowledge** (outdated or wrong facts), **Reasoning** (flawed argument or justification), **Tooling** (commands and scripts the AI runs), **Workflow** (acting against how the user wants to work).
 
@@ -40,9 +40,37 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **Impact:** a weak argument nearly went unchallenged into the design; it also hid that the 25 m/s² rule detects an impact on the *phone* (e.g. a dropped phone), not a fall of the *person*.
 - **Correction:** the notification is kept because the task requires it (Part A "Benachrichtigung", Part C notification permission); the warning was renamed to "Strong shock detected" (switch: "Shock alerts") so it claims only what the sensor can tell.
 
-## 6 · 2026-10-25 13:41 · Tooling · Created and staged a doc with an empty prompt
+## 6 · 2026-10-25 12:41 · Tooling · Created and staged a doc with an empty prompt
 
 - **What the AI did:** built `docs/generation-prompt.md` with a shell script that copied the prompt from a temporary file. The temporary file had been deleted overnight; the script didn't stop on the error, so it created the file with an empty prompt block and staged it.
 - **How it was noticed:** the AI read the script's output (`No such file or directory`) before presenting the result.
 - **Impact:** none; nothing was committed.
 - **Correction:** the prompt was taken from the Claude Code session log instead (exactly what the sub-agent received), checked to be identical to the committed spec, and the file was rebuilt with a script that stops on any error.
+
+## 7 · 2026-10-25 13:34 · Tooling · Drove the emulator without checking that it was running
+
+- **What the AI did:** started the multi-step lifecycle check (Part C) without first checking `adb devices`. The emulator had been shut down overnight, so the first `adb` call waited for a device and the command hung until it was moved to the background.
+- **How it was noticed:** the command timed out; its output showed "waiting for device".
+- **Impact:** none; the waiting command was stopped before the emulator came back, so no step ran unobserved.
+- **Correction:** emulator checks start with `adb devices` and stop if no device is listed.
+
+## 8 · 2026-10-25 13:50 · Tooling · Emulator start command blocked on its own output pipe
+
+- **What the AI did:** started the emulator from WSL with `cmd.exe /c start … | tr … | grep …`. The emulator inherited the pipe, so the pipeline could only end when the emulator exits; the following boot check never ran and the command hung until its timeout.
+- **How it was noticed:** the command timed out with empty output, although the emulator had started.
+- **Impact:** about 9 minutes lost; the emulator itself was fine.
+- **Correction:** check the emulator with separate, short `adb` calls wrapped in `timeout`; never pipe the output of a process that keeps running.
+
+## 9 · 2026-10-25 14:23 · Tooling · Converted log times with a fixed UTC+2 offset across the DST change
+
+- **What the AI did:** took the times for entries 6 and 8 from the session log (UTC) and converted them with a fixed offset of +2 h. Daylight saving time had ended at 03:00 that night, so both times were one hour too late, and entry 6 appeared after entry 7.
+- **How it was noticed:** while checking emulator timestamps (emulator in UTC, host in CET), the AI compared the clocks and re-read the log.
+- **Impact:** two wrong times in this file; nothing else.
+- **Correction:** entries 6 and 8 corrected to CET; the header now states which time zone applies when; conversions use the `Europe/Berlin` time zone instead of a fixed offset.
+
+## 10 · 2026-10-25 14:25 · Tooling · Corrupted emulator screenshots with a text filter
+
+- **What the AI did:** wrapped all `adb` calls in a helper that pipes output through `tr -d '\r'` (to remove Windows line endings) and also used it for `screencap`, which deleted bytes from the binary PNG files.
+- **How it was noticed:** the image could not be opened for checking.
+- **Impact:** two review screenshots in the scratchpad were unusable; one was retaken, the other wasn't needed.
+- **Correction:** binary output (screenshots) is written without any filter; the helper is only used for text.
