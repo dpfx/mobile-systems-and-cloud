@@ -82,7 +82,7 @@ The system's screen-rotation detection requests 66,667 µs (`SENSOR_DELAY_UI`, [
 2. **For this app, the rate is a small lever.** The larger one is not running at all when nothing is visible, as the app does (Part C, item 1), and as the [`SensorManager` reference][sm] advises: "Always make sure to disable sensors you don't need, especially when your activity is paused." With the screen off, batching would be the lever ([`maxReportLatencyUs`][batch]: it reduces "the number of interrupts the AP (Application Processor) receives, hence reducing power consumption"); the emulator's sensor can't batch ([`sensorservice.txt`][dump], line 8), so this wasn't measured.
 3. **`GAME` stays right for the shock warning:** `NORMAL` would save little and could miss short peaks.
 
-Limit: the emulator runs on a PC processor, so only the ratio carries over, not the absolute values. Full version with all excerpts: [`docs/measurements.md`][full].
+Limit: the emulator runs on a PC processor, so only the ratio carries over, not the absolute values. Full version with all excerpts: [`docs/measurements.md`][full-measurements].
 
 [script]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/tools/measure.sh
 [data]: https://github.com/dpfx/mobile-systems-and-cloud/tree/main/aufgabe-1/docs/measurements
@@ -90,7 +90,7 @@ Limit: the emulator runs on a PC processor, so only the ratio carries over, not 
 [gpslog]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/measurements/gps-steps.log
 [dump]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/measurements/sensorservice.txt
 [errors]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/ai-errors.md
-[full]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/measurements.md
+[full-measurements]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/measurements.md
 [se]: https://developer.android.com/reference/android/hardware/SensorEvent#values
 [alt]: https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-17.0.0_r1/core/java/android/hardware/SensorManager.java#1561
 [dist]: https://developer.android.com/reference/android/location/Location#distanceBetween(double,%20double,%20double,%20double,%20float[])

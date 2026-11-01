@@ -1,6 +1,10 @@
 # Course material: the lecturer's PDFs stay out of the repo in case it is ever made public
 /aufgabe-*.pdf
 
+# Submissions: the hand-in PDF and its local title data contain the student's name
+aufgabe_*.pdf
+title.local.*
+
 # Gradle / Android build output
 .gradle/
 .kotlin/

@@ -33,7 +33,7 @@ Not personal on their own: the measured event rates; they depend on the phone an
 
 **Conclusion:** every sensor in the app produces personal data, GPS directly, the accelerometer and barometer through what can be inferred from them, most strongly in combination. Android's permissions don't reflect this: Sensor Lab needs one only for location (and notifications), while the accelerometer and barometer can be read without asking; Android only limits the rate of motion sensors "to protect potentially sensitive information about users" ([Sensor rate-limiting][ratelimit]). Sensor Lab keeps all values in memory and stores nothing (spec section 5); the planned recognition fits this only if it runs on the device.
 
-**Sources:** [GDPR, Art. 4(1)][gdpr] · J. L. Kröger, P. Raschke, T. R. Bhuiyan: "Privacy Implications of Accelerometer Data: A Review of Possible Inferences", ICCSP '19, 2019, [doi:10.1145/3309074.3309076][kroeger] · [UCI HAR dataset][uci] · Android Developers: [Activity Recognition Transition API][transition], [radio state machine][radio], [`SensorEvent.values`][values], [Sensor rate-limiting][ratelimit]. Full version: [`docs/assessment.md`][full].
+**Sources:** [GDPR, Art. 4(1)][gdpr] · J. L. Kröger, P. Raschke, T. R. Bhuiyan: "Privacy Implications of Accelerometer Data: A Review of Possible Inferences", ICCSP '19, 2019, [doi:10.1145/3309074.3309076][kroeger] · [UCI HAR dataset][uci] · Android Developers: [Activity Recognition Transition API][transition], [radio state machine][radio], [`SensorEvent.values`][values], [Sensor rate-limiting][ratelimit]. Full version: [`docs/assessment.md`][full-assessment].
 
 [gdpr]: https://eur-lex.europa.eu/eli/reg/2016/679/oj
 [kroeger]: https://doi.org/10.1145/3309074.3309076
@@ -42,4 +42,4 @@ Not personal on their own: the measured event rates; they depend on the phone an
 [radio]: https://developer.android.com/develop/connectivity/network-ops/network-access-optimization
 [values]: https://developer.android.com/reference/android/hardware/SensorEvent#values
 [ratelimit]: https://developer.android.com/develop/sensors-and-location/sensors/sensors_overview
-[full]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/assessment.md
+[full-assessment]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/assessment.md

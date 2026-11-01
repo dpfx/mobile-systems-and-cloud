@@ -1,0 +1,8 @@
+# Title page of the submission PDF (see template.html).
+# For the hand-in copy, build.sh also reads title.local.yaml (gitignored), whose author lines
+# (name, matriculation number) replace the neutral line below.
+title: "Sensor Lab"
+subtitle: "Task 1 – Sensors"
+course: "Praktikum Mobile Systeme und Cloud · winter semester 2026/27 · Hochschule Albstadt-Sigmaringen"
+author: "Name and matriculation number: on the submitted copy"
+repo: "https://github.com/dpfx/mobile-systems-and-cloud/tree/main/aufgabe-1"

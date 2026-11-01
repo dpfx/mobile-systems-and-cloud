@@ -107,7 +107,7 @@ The project builds cleanly from scratch, a full recompile shows 0 compiler warni
 | **Impact** | Android's generic placeholder icon on the home screen and in the notification. |
 | **Fix** | An adaptive vector icon. Verified: Lint no longer reports `MissingApplicationIcon`. Commit [`0e2987c`][f5]. |
 
-Full version with all excerpts and emulator tables: [`docs/review.md`][full].
+Full version with all excerpts and emulator tables: [`docs/review.md`][full-review].
 
 [raw]: https://github.com/dpfx/mobile-systems-and-cloud/tree/ea661d8/aufgabe-1
 [f1]: https://github.com/dpfx/mobile-systems-and-cloud/commit/6638a12
@@ -115,4 +115,4 @@ Full version with all excerpts and emulator tables: [`docs/review.md`][full].
 [f3]: https://github.com/dpfx/mobile-systems-and-cloud/commit/249f929
 [f4]: https://github.com/dpfx/mobile-systems-and-cloud/commit/ad46acf
 [f5]: https://github.com/dpfx/mobile-systems-and-cloud/commit/0e2987c
-[full]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/review.md
+[full-review]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/review.md
