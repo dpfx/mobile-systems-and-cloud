@@ -1,6 +1,6 @@
 # AI errors – Task 1
 
-Chronological record of every error the AI (Claude Code, Claude Opus 5.5) made in this task, with how it was noticed and how it was corrected. Times are local German time: CEST (UTC+2) until 2026-10-25 03:00, CET (UTC+1) afterwards. This is the raw material for the one-page AI log (`ai-log.md`), in particular its question "Where did the AI make errors, and how did you notice them?".
+Chronological record of the errors the AI (Claude Code, Claude Opus 5.5) made in this task, with how they were noticed and how they were corrected. Listed are errors that produced a wrong result or forced a step to be redone; command slips fixed in the next attempt are not listed. Times are local German time: CEST (UTC+2) until 2026-10-25 03:00, CET (UTC+1) afterwards. This is the raw material for the one-page AI log (`ai-log.md`), in particular its question "Where did the AI make errors, and how did you notice them?".
 
 Categories: **Build** (build configuration, dependencies), **Code** (app code), **Knowledge** (outdated or wrong facts), **Reasoning** (flawed argument or justification), **Tooling** (commands and scripts the AI runs), **Workflow** (acting against how the user wants to work).
 
@@ -123,3 +123,10 @@ Categories: **Build** (build configuration, dependencies), **Code** (app code), 
 - **How it was noticed:** the user asked "do we really have to go into that detail? what does the task description say?". The PDF only asks for a justified choice along four criteria and which data is personal.
 - **Impact:** time spent on searches; nothing went into the docs.
 - **Correction:** the feasibility source was dropped and the `TODO.md` item reworded to "citable sources for the claims made"; research is now checked against the PDF's wording before it is proposed.
+
+## 18 · 2026-11-01 12:22 · Tooling · Screenshot script assumed the Values list was scrolled to the top
+
+- **What the AI did:** the one-off script for the final screenshots (submission PDF) took the Values-tab screenshot without checking the list's scroll position. The list was still scrolled down from an earlier session, so the accelerometer card's title was cut off.
+- **How it was noticed:** the AI looked at the screenshot before using it.
+- **Impact:** one unusable screenshot; the scene was run again. (A further rerun was needed because the emulator's GPS fixes paused for a few seconds and the card showed 0.0 Hz; the app reported that correctly, so it was not an AI error.)
+- **Correction:** the script now dismisses a leftover warning banner, scrolls the list to the top and waits for a GPS rate of 1.0 Hz before taking the shot.

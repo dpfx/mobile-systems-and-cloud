@@ -37,8 +37,12 @@ th, td { border: 0.5pt solid #999; padding: 2pt 3pt; vertical-align: top; text-a
 th { background: #eee; }
 tr { break-inside: avoid; }
 
-/* Each part of the documentation starts on a new page (build.sh wraps every part in a .part div). */
+/* Each part of the documentation starts on a new page (build.sh wraps every part in a .part div),
+   except two short ones that would leave a page nearly empty: the environment info goes onto the
+   title page, and the review starts right below the spec amendments. */
 .part { break-before: page; }
+#environment, #review { break-before: auto; margin-top: 1.5cm; }
+#environment h1 { font-size: 12pt; }
 
 /* Title page */
 .titlepage { text-align: center; padding-top: 5cm; }

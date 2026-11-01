@@ -4,11 +4,11 @@
 
 ## 1. Accelerometer
 
-**Setup:** from the phone upright at rest, inject the scenario's acceleration and read the app's \|a\| 2.5 s later.
+**Setup:** from the phone upright at rest, inject the scenario's acceleration and read the app's \|a\| from its log 2.5 s later.
 
 **Expected:** flat on a table, the [`SensorEvent` reference][se] gives "+9.81" (gravity, so \|a\| = 1 g); tilted, gravity splits into x = g · sin 30° and z = g · cos 30°, and \|a\| = g · √(sin² 30° + cos² 30°) stays 1 g; in free fall the accelerometer "reads a magnitude of 0 m/s^2" (same reference).
 
-| Scenario | Injected (x, y, z) in m/s² | Expected \|a\| | App shows (all 5 runs) | Deviation |
+| Scenario | Injected (x, y, z) in m/s² | Expected \|a\| | App: \|a\| (all 5 runs) | Deviation |
 |---|---|---|---|---|
 | Flat on a table | (0, 0, 9.80665) | 9.807 m/s² = 1.000 g | 9.807 m/s² = 1.000 g | 0 |
 | Right edge raised by 30° | (4.903325, 0, 8.492808) | 9.807 m/s² = 1.000 g | 9.807 m/s² = 1.000 g | 0 |

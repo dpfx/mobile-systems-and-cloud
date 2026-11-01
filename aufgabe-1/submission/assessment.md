@@ -1,6 +1,6 @@
 # Part E – Sensor data and AI
 
-**Scenario:** the app is to recognise sitting, walking or climbing stairs from the accelerometer (read at 50 Hz, as now) and the barometer (one floor ≈ 0.36 hPa, Part D 2.2). The public [UCI HAR dataset][uci] uses the same kind of data at the same rate (smartphone accelerometer, plus gyroscope, at 50 Hz) for these activities, in windows of 2.56 s.
+**Scenario:** the app is to recognise sitting, walking or climbing stairs from the accelerometer (read at 50 Hz, as now) and the barometer (one floor ≈ 0.36 hPa, Part D 2). The public [UCI HAR dataset][uci] uses the same kind of data at the same rate (smartphone accelerometer, plus gyroscope, at 50 Hz) for these activities, in windows of 2.56 s.
 
 ## 1. Edge or cloud?
 
@@ -26,7 +26,7 @@ The sensors run in both variants, so the difference is computing on the phone vs
 | Positions in the debug log (3 decimals ≈ 100 m; debug builds only) | Yes, still location data | Where the person was and when, to about 100 m | Part C, item 8 |
 | Accelerometer x, y, z and \|a\| | Yes, it allows conclusions | "a device holder's location, activities, health condition, body features, gender, age, personality traits, and emotional state"; it can "uniquely identify a person based on biometric movement patterns" | [Kröger et al.][kroeger], abstract |
 | Shock warnings (time, peak \|a\|) | Yes | When the phone was hit or dropped (with GPS: where) | Spec section 3 |
-| Barometer pressure and Δh | Yes, mainly in combination | Floor changes, so the floor within a building; with GPS, which floor of which building | Part D 2.2 |
+| Barometer pressure and Δh | Yes, mainly in combination | Floor changes, so the floor within a building; with GPS, which floor of which building | Part D 2 |
 | Activity labels of the planned feature | Yes | Daily routine, how much the person sits or moves; possibly the health condition | [Kröger et al.][kroeger] |
 
 Not personal on their own: the measured event rates; they depend on the phone and on other apps (Part D 4).

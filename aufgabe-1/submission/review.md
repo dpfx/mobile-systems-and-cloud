@@ -36,7 +36,8 @@ Beyond the checklist: findings F3–F5 (section 9). All five findings were fixed
 |---|---|---|
 | x, y, z | `ui/SensorLabViewModel.kt:190-192` | `SensorEvent.values` in m/s² |
 | \|a\|, in g | `ui/SensorLabViewModel.kt:193`, `ui/Format.kt:21` | √(x² + y² + z²); divided by `SensorManager.STANDARD_GRAVITY` (9.80665) |
-| Δh | `ui/SensorLabViewModel.kt:269-277` | `getAltitude(PRESSURE_STANDARD_ATMOSPHERE, p)` minus the value at the start |
+| Pressure | `ui/SensorLabViewModel.kt:265`, `ui/ValuesTab.kt:111` | `SensorEvent.values[0]`, which Android defines as "Atmospheric pressure in hPa (millibar)" ([`SensorEvent`][sensorevent]); shown in hPa |
+| Δh | `ui/SensorLabViewModel.kt:269-277, 376-377` | `getAltitude(PRESSURE_STANDARD_ATMOSPHERE, p)` minus the value at the start |
 | Distance | `processing/DistanceTracker.kt:79-83` | `Location.distanceBetween` (WGS84) |
 | Measured rate | `processing/RateMeter.kt:21-26` | (events − 1) / time span within 2 s, from the events' timestamps |
 
@@ -53,7 +54,7 @@ Repeated measurements with known inputs: Part D.
 
 ## 5. Sampling rate and energy – appropriate
 
-The accelerometer runs at `GAME` (50 Hz) because the shock warning needs it: an impact lasts only tens of milliseconds, and at 5 Hz a peak can fall between two samples. The barometer runs at `NORMAL`, the slowest preset, since pressure changes slowly; GPS delivers 1 fix per second and runs only while the screen is visible. The requested periods reach Android unchanged (`dumpsys sensorservice`: `samplingPeriod= 20000us` / `200000us`). At `NORMAL`, Android delivers 15 Hz instead of 5 Hz (Part D, section 4).
+The accelerometer runs at `GAME` (50 Hz) because the shock warning needs it: at 5 Hz the samples are 200 ms apart, so a short peak can fall between two of them. The barometer runs at `NORMAL`, the slowest preset, since pressure changes slowly; GPS delivers 1 fix per second and runs only while the screen is visible. The requested periods reach Android unchanged (`dumpsys sensorservice`: `samplingPeriod= 20000us` / `200000us`). At `NORMAL`, Android delivers 15 Hz instead of 5 Hz (Part D, section 4).
 
 ## 6. UI and memory – correct
 
@@ -110,6 +111,7 @@ The project builds cleanly from scratch, a full recompile shows 0 compiler warni
 Full version with all excerpts and emulator tables: [`docs/review.md`][full-review].
 
 [raw]: https://github.com/dpfx/mobile-systems-and-cloud/tree/ea661d8/aufgabe-1
+[sensorevent]: https://developer.android.com/reference/android/hardware/SensorEvent#values
 [f1]: https://github.com/dpfx/mobile-systems-and-cloud/commit/6638a12
 [f2]: https://github.com/dpfx/mobile-systems-and-cloud/commit/ef533ad
 [f3]: https://github.com/dpfx/mobile-systems-and-cloud/commit/249f929

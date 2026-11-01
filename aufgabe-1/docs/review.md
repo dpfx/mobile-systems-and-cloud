@@ -100,6 +100,7 @@ Beyond the checklist: findings F3–F5 (section 9).
 | x, y, z | `ui/SensorLabViewModel.kt:190-192` | `SensorEvent.values` in m/s² |
 | \|a\| | `ui/SensorLabViewModel.kt:193` | √(x² + y² + z²) |
 | g | `ui/Format.kt:21` | \|a\| / `SensorManager.STANDARD_GRAVITY` (9.80665), not a hand-typed 9.81 |
+| Pressure | `ui/SensorLabViewModel.kt:265`, `ui/ValuesTab.kt:111` | `SensorEvent.values[0]`, which Android defines as "Atmospheric pressure in hPa (millibar)" ([`SensorEvent`](https://developer.android.com/reference/android/hardware/SensorEvent#values)); shown in hPa |
 | Δh | `ui/SensorLabViewModel.kt:269-277, 376-377` | `getAltitude(PRESSURE_STANDARD_ATMOSPHERE, p)` minus the value at the start |
 | Distance | `processing/DistanceTracker.kt:79-83` | `Location.distanceBetween` (WGS84 ellipsoid) |
 | Measured rate | `processing/RateMeter.kt:21-26` | (events − 1) / time span within 2 s, from the events' own timestamps (ns) |
@@ -134,7 +135,7 @@ The Δh deviation comes from the emulator, not the app: the app's log shows that
 
 | Aspect | Code | Assessment |
 |---|---|---|
-| Accelerometer at `SENSOR_DELAY_GAME` (50 Hz) | `ui/SensorLabViewModel.kt:51, 156-159` | Needed for the shock warning: an impact lasts only tens of milliseconds, at 5 Hz a peak can fall between two samples. The card says so when the rate is switched to `NORMAL`. |
+| Accelerometer at `SENSOR_DELAY_GAME` (50 Hz) | `ui/SensorLabViewModel.kt:51, 156-159` | Needed for the shock warning: at 5 Hz the samples are 200 ms apart, so a short peak can fall between two of them. The card says so when the rate is switched to `NORMAL`. |
 | Barometer at `SENSOR_DELAY_NORMAL` (5 Hz) | `ui/SensorLabViewModel.kt:386` | Pressure changes slowly; `NORMAL` is the slowest of Android's presets. |
 | GPS: 1 fix per second, high accuracy | `data/LocationRepository.kt:84-86, 124` | Matches walking speed (≈ 1.4 m/s). GPS is the largest energy consumer and runs only while the screen is visible (item 1). |
 | No `SENSOR_DELAY_FASTEST`, no `HIGH_SAMPLING_RATE_SENSORS` | `AndroidManifest.xml`, `ui/SensorLabUiState.kt:8-13` | No more data than needed (SENS-4). |
