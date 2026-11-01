@@ -8,10 +8,10 @@
 
 | Criterion | On the device | In the cloud | Evidence |
 |---|---|---|---|
-| Latency | Result as soon as a window of data is complete and classified; no network involved | Same window, plus upload, processing and response. If the radio was idle, waking it adds time: "Returning to full power from the low state takes around 1.5 seconds, and moving from standby to full power can take over 2 seconds" | [Android: radio state machine][radio] (figures for "a typical 3G network radio") |
+| Latency | Result as soon as a window of data is complete and classified; no network involved | Same window, plus upload, processing and response | Window length: [UCI HAR][uci] |
 | Energy | Sensor data stays in memory; the work is computation only. For comparison, the whole app at 50 Hz uses 3.20 % of one CPU core (emulator) | The raw values alone are 600 B/s (3 axes × 4-byte `float` × 50 Hz), 2.2 MB per hour, before timestamps and protocol overhead. A continuous upload keeps the radio active: "When fully active, the wireless radio consumes significant power, but when inactive or in standby, the radio consumes very little power" | `measurements.md`, section 5; [`SensorEvent.values`][values]; [radio state machine][radio] |
 | Offline | Works wherever the phone is | Recognises nothing without a connection. The app is a hiking companion, so it is used outdoors, where coverage can't be assumed | Spec, first line |
-| Privacy | Raw data stays on the phone; at most the result leaves it, and only if the user wants that | The raw accelerometer stream (and barometer) is sent to a server. Accelerometer data alone can reveal health, body features and identity (section 2). The GDPR requires data to be "limited to what is necessary" for the purpose, and the recognition needs only the result, not the raw stream on a server | [GDPR Art. 5(1)(c)][gdpr]; [Kröger et al.][kroeger] |
+| Privacy | Raw data stays on the phone; at most the result leaves it, and only if the user wants that | The raw accelerometer stream (and barometer) is sent to a server. Accelerometer data alone can reveal health, body features and identity (section 2), while the recognition needs only the result, not the raw stream on a server | [Kröger et al.][kroeger]; section 2 |
 
 The sensors run in both variants, so their own energy use is the same. The difference is computing on the phone vs. transmitting continuously. Latency is the least decisive criterion: activities last seconds to minutes, and both variants need a full window of data first.
 
@@ -21,7 +21,7 @@ The sensors run in both variants, so their own energy use is the same. The diffe
 
 ## 2. Personal data
 
-**Yardstick:** the GDPR's definition, Art. 4(1): "'personal data' means any information relating to an identified or identifiable natural person …; an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person". Art. 4(15) defines "data concerning health" as personal data "which reveal information about his or her health status" ([GDPR][gdpr]).
+**Yardstick:** the GDPR's definition, Art. 4(1): "'personal data' means any information relating to an identified or identifiable natural person …; an identifiable natural person is one who can be identified, directly or indirectly, in particular by reference to an identifier such as a name, an identification number, location data, an online identifier or to one or more factors specific to the physical, physiological, genetic, mental, economic, cultural or social identity of that natural person" ([GDPR][gdpr]).
 
 | Data in Sensor Lab | Personal? | What it reveals about the person | Evidence |
 |---|---|---|---|
@@ -29,9 +29,9 @@ The sensors run in both variants, so their own energy use is the same. The diffe
 | Distance since Reset | Yes, derived from the positions | How far and how fast the person moves | Spec section 1 |
 | Positions in the debug log (3 decimals ≈ 100 m; debug builds only) | Yes, still location data | Where the person was and when, to about 100 m | `review.md`, item 8 |
 | Accelerometer x, y, z and \|a\| | Yes, it allows conclusions | "a device holder's location, activities, health condition, body features, gender, age, personality traits, and emotional state"; it can even "uniquely identify a person based on biometric movement patterns" | [Kröger et al.][kroeger], abstract |
-| Shock warnings (time, peak \|a\|) | Yes | Falls or accidents, so they can become data concerning health (Art. 4(15)) | Spec section 3; GDPR Art. 4(15) |
+| Shock warnings (time, peak \|a\|) | Yes | When the phone was hit or dropped (with GPS: where) | Spec section 3 |
 | Barometer pressure and Δh | Yes, mainly in combination | Floor changes (1 floor ≈ 0.36 hPa, `measurements.md` 2.2), so the floor within a building; with GPS, which floor of which building | `measurements.md`, section 2.2 |
-| Activity labels of the planned feature | Yes | Daily routine, how much the person sits or moves, so possibly health | [Kröger et al.][kroeger] (activities, health condition) |
+| Activity labels of the planned feature | Yes | Daily routine, how much the person sits or moves; possibly the health condition | [Kröger et al.][kroeger] (activities, health condition) |
 
 Not personal on their own: the measured event rates; they depend on the phone and on other apps (`measurements.md`, section 4).
 
@@ -39,7 +39,7 @@ Not personal on their own: the measured event rates; they depend on the phone an
 
 ## Sources
 
-- Regulation (EU) 2016/679 (GDPR), Art. 4(1), 4(15), 5(1)(c): https://eur-lex.europa.eu/eli/reg/2016/679/oj
+- Regulation (EU) 2016/679 (GDPR), Art. 4(1): https://eur-lex.europa.eu/eli/reg/2016/679/oj
 - J. L. Kröger, P. Raschke, T. R. Bhuiyan: "Privacy Implications of Accelerometer Data: A Review of Possible Inferences". ICCSP '19, pp. 81–87, 2019: https://doi.org/10.1145/3309074.3309076
 - D. Anguita et al.: Human Activity Recognition Using Smartphones (dataset), UCI Machine Learning Repository: https://archive.ics.uci.edu/dataset/240/human+activity+recognition+using+smartphones
 - Android Developers, Detect when users start or end an activity: https://developer.android.com/develop/sensors-and-location/location/transitions

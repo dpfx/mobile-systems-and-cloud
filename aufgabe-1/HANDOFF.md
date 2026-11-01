@@ -1,4 +1,4 @@
-# Handoff – Task 1 (state of 2026-10-25, ~20:57 CET)
+# Handoff – Task 1 (state of 2026-11-01, ~12:04 CET)
 
 Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and `TODO.md`. The working rules (walk the user through first, one decision at a time, Claude never commits, English only, ask before touching files on C:) are in the CLAUDE.md files and in Claude's memory.
 
@@ -37,22 +37,31 @@ Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and 
 - `ai-log.md` is the only doc that must already fit the PDF limit (one page). Test render: one page at A4, 2 cm margins, 9.5 pt text, 8 pt table; the final stylesheet must keep it on one page.
 - Only Claude Code is listed; if the user used any other AI tool for the task, it needs its own row.
 
+## PDF step – decisions (2026-11-01)
+
+- **Claims review done** (the four claims the user wanted to check, one at a time; edits made in the full docs):
+  1. `assessment.md`: the GDPR is reduced to the Art. 4(1) definition of "personal" (Task 1 doesn't require the GDPR; the course puts it in Task 2). Art. 4(15) and Art. 5(1)(c) removed. The shock-warning row now says "when the phone was hit or dropped": the old "falls or accidents" contradicted `ai-errors.md` entry 5.
+  2. `assessment.md`: the 3G wake-up numbers are removed from the latency row; the general energy quote stays.
+  3. `measurements.md` §5: the straight-line estimate stays, labeled, in the full doc and is dropped in the PDF; the energy conclusion now rests on the measured fact "with 70 % fewer events, 83 % of the CPU time remained".
+  4. `measurements.md` §4: run 4 is attributed by the coincidence argument (one disturbance, one deviating reading); the estimated read time is only a labeled cross-check.
+- **Hand-in:** one build, two outputs. (1) The documentation PDF, committed in `aufgabe-1/submission/`, with a title page without personal data. (2) The hand-in PDF `aufgabe_1_<surname>.pdf`: a title page with name and matriculation number (from a small local, gitignored file) plus exactly the same pages; gitignored and built locally; it also contains the repo link pinned to a tag. A cover page with only a link was rejected: page 4 requires the documentation as a PDF with the name on its first page, page 7 lists its contents, and a link is allowed only for the code.
+- **Condensed versions:** separate files in `aufgabe-1/submission/`, one per doc, written from the full docs; the folder also holds the stylesheet and the build script. They are build inputs, not hand-in files.
+- **Screenshots:** retake 01 and 02 with GPS on and a short injected walk (all three sensors and charts with data), and 05 (banner + notification with the current icon); after the condensing, with a walkthrough of the emulator steps first. Only 05 and 06 show the old icon (03 and 04 don't).
+- **Section order:** title page, environment info, spec (= prompt) with the amendments, review findings, measurement protocol, screenshots, Part E, AI log.
+
 ## Next steps
 
-1. User commits the staged state (`environment.md`, `TODO.md`, this file).
-2. PDF: pandoc + WeasyPrint, stylesheet in the repo, spec page = `specification.md` plus a short amendments table, consider retaking screenshots 03–06 (they show the old placeholder icon), title page filled in by the user.
-   **First, before any trimming, review these interpretive claims with the user, one at a time** (user's request, 2026-10-25):
-   1. `assessment.md` §2: GDPR classifications are interpretation, not legal advice (shock warnings "can become" data concerning health; barometer personal "mainly in combination").
-   2. `assessment.md` §1: the radio figures (1.5 s / >2 s wake-up, "significant power") are for a 3G radio; they support only the qualitative point.
-   3. `measurements.md` §5: the straight-line estimate through two points (2.45 % fixed share, "about a fifth") is extrapolated.
-   4. `measurements.md` §4: the read time of `NORMAL` run 4 (~15:33:17 UTC) is inferred from the script's pacing and the CSV's file time, not recorded.
-
-   Then condense from the full docs (PDF rule: "as little as possible, as much as necessary"):
-   - `review.md`
-   - `measurements.md`: drop the overview table; barometer step test (2.1) down to two sentences; event-rate explanation down to the `dumpsys` excerpt plus the "only a suggested delay" quote, AOSP as a one-clause link, no `SENSOR_DELAY_UI` footnote; method paragraph in 3 sentences; in section 5, drop the straight-line estimate (2.45 % fixed share, "even 5 Hz would save only about a fifth") and keep the measured ratio (−16.5 % CPU for −70 % events).
+1. User commits the staged state (claim edits in `assessment.md` and `measurements.md`, this file).
+2. Condensed files in `aufgabe-1/submission/`, written from the full docs (PDF rule: "as little as possible, as much as necessary"):
+   - `review.md`: propose a trim list to the user first.
+   - `measurements.md`: drop the overview table; barometer step test (2.1) down to two sentences; event-rate explanation down to the `dumpsys` excerpt plus the "only a suggested delay" quote, AOSP as a one-clause link, no `SENSOR_DELAY_UI` footnote; run 4 with the coincidence argument only; method paragraph in 3 sentences; in section 5, drop the straight-line estimate (2.45 % fixed share, "even 5 Hz would save only about a fifth") and keep the measured facts (−16.5 % CPU for −70 % events; 83 % remained).
    - `assessment.md`: scenario in one sentence; GDPR Art. 4(1) quoted only up to "location data"; the paragraphs on what the cloud is used for and on the own model one sentence each.
    - `environment.md`: the PDF requires only device, Android version, AI tool and model; the host and toolchain rows and the sources line are optional.
-3. Code ZIP or GitHub link (repo `dpfx/mobile-systems-and-cloud`, public), push, upload to Ilias.
+   - `specification.md` unchanged (it is the prompt); `spec-amendments.md` as a short table; `ai-log.md` unchanged (already one page).
+3. Stylesheet, build script (pandoc + WeasyPrint, two outputs), `.gitignore` rules for the hand-in PDF and the local title file (the existing `/aufgabe-*.pdf` rule doesn't match `aufgabe_1_…`).
+4. Retake screenshots 01, 02 and 05.
+5. Check the built PDF together, page by page; the user adds name and matriculation number locally and builds the hand-in PDF.
+6. Submission: tag the repo; ZIP of `src` without build folders and the pinned link in the PDF; push; upload to Ilias.
 
 ## Practical notes
 
