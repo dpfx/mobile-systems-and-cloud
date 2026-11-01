@@ -11,4 +11,4 @@ The specification above is the prompt the app was generated from, so it stays un
 Full wording (original and amended): [`docs/spec-amendments.md`][full-amendments].
 
 [tap]: https://developer.android.com/develop/ui/views/notifications/build-notification#tap
-[full-amendments]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/spec-amendments.md
+[full-amendments]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/docs/spec-amendments.md

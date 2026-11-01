@@ -84,13 +84,13 @@ The system's screen-rotation detection requests 66,667 µs (`SENSOR_DELAY_UI`, [
 
 Limit: the emulator runs on a PC processor, so only the ratio carries over, not the absolute values. Full version with all excerpts: [`docs/measurements.md`][full-measurements].
 
-[script]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/tools/measure.sh
-[data]: https://github.com/dpfx/mobile-systems-and-cloud/tree/main/aufgabe-1/docs/measurements
-[steps]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/measurements/barometer-steps.csv
-[gpslog]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/measurements/gps-steps.log
-[dump]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/measurements/sensorservice.txt
-[errors]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/ai-errors.md
-[full-measurements]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/measurements.md
+[script]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/tools/measure.sh
+[data]: https://github.com/dpfx/mobile-systems-and-cloud/tree/aufgabe-1-submission/aufgabe-1/docs/measurements
+[steps]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/docs/measurements/barometer-steps.csv
+[gpslog]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/docs/measurements/gps-steps.log
+[dump]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/docs/measurements/sensorservice.txt
+[errors]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/docs/ai-errors.md
+[full-measurements]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/docs/measurements.md
 [se]: https://developer.android.com/reference/android/hardware/SensorEvent#values
 [alt]: https://android.googlesource.com/platform/frameworks/base/+/refs/tags/android-17.0.0_r1/core/java/android/hardware/SensorManager.java#1561
 [dist]: https://developer.android.com/reference/android/location/Location#distanceBetween(double,%20double,%20double,%20double,%20float[])

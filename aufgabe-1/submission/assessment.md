@@ -42,4 +42,4 @@ Not personal on their own: the measured event rates; they depend on the phone an
 [radio]: https://developer.android.com/develop/connectivity/network-ops/network-access-optimization
 [values]: https://developer.android.com/reference/android/hardware/SensorEvent#values
 [ratelimit]: https://developer.android.com/develop/sensors-and-location/sensors/sensors_overview
-[full-assessment]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/assessment.md
+[full-assessment]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/docs/assessment.md

@@ -37,11 +37,14 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [x] Android 17 / API 37, emulator "Medium Phone API 37.0", Claude Code with Claude Opus 5.5 (`docs/environment.md`)
 
 ## Submission
-- [ ] Condense `review.md`, `measurements.md` and `assessment.md` for the PDF, always from the full docs (trim list in `HANDOFF.md`)
-- [ ] PDF built with pandoc + WeasyPrint; stylesheet in the repo
-- [ ] Title page with name and matriculation number (filled in by the student)
-- [ ] File name `aufgabe_1_<surname>.pdf`
-- [ ] Code: ZIP of `src` without build folders, or link to the public GitHub repo
+- [x] Condense `review.md`, `measurements.md` and `assessment.md` for the PDF, always from the full docs (`submission/`)
+- [x] PDF built with pandoc + WeasyPrint; stylesheet in the repo (`submission/build.sh`, `style.css`)
+- [x] Page check with the student; line-by-line review against the task; spell check
+- [x] Links in the PDF pinned to the tag `aufgabe-1-submission`
+- [ ] Tag `aufgabe-1-submission` created and pushed (by the student)
+- [ ] Title page with name and matriculation number (student: `submission/title.local.yaml`, then `build.sh`)
+- [x] File name `aufgabe_1_<surname>.pdf` (set by `build.sh`)
+- [x] Code: link to the public GitHub repo, pinned to the tag (page 4 allows a link instead of a ZIP)
 - [ ] Upload to Ilias
 
 ## Housekeeping

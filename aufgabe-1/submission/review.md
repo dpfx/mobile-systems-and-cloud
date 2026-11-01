@@ -117,4 +117,4 @@ Full version with all excerpts and emulator tables: [`docs/review.md`][full-revi
 [f3]: https://github.com/dpfx/mobile-systems-and-cloud/commit/249f929
 [f4]: https://github.com/dpfx/mobile-systems-and-cloud/commit/ad46acf
 [f5]: https://github.com/dpfx/mobile-systems-and-cloud/commit/0e2987c
-[full-review]: https://github.com/dpfx/mobile-systems-and-cloud/blob/main/aufgabe-1/docs/review.md
+[full-review]: https://github.com/dpfx/mobile-systems-and-cloud/blob/aufgabe-1-submission/aufgabe-1/docs/review.md
