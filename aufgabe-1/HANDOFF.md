@@ -1,4 +1,4 @@
-# Handoff – Task 1 (state of 2026-11-01, ~12:18 CET)
+# Handoff – Task 1 (state of 2026-11-01, ~12:27 CET)
 
 Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and `TODO.md`. The working rules (walk the user through first, one decision at a time, Claude never commits, English only, ask before touching files on C:) are in the CLAUDE.md files and in Claude's memory.
 
@@ -51,10 +51,10 @@ Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and 
 
 ## Next steps
 
-1. User commits the staged state (build files and `documentation.pdf` in `submission/`, `.gitignore`, this file).
+1. User commits the staged state (new screenshots, `submission/screenshots.md`, `documentation.pdf`, this file).
 2. Done (2026-11-01): condensed files in `aufgabe-1/submission/` (`review.md` with all five findings, `measurements.md`, `assessment.md`, `environment.md`, `spec-amendments.md`), written from the full docs following the trim lists; rough render: review 3 pages (full: 9), measurements 3 (6), assessment 2 (3). `specification.md` and `ai-log.md` are read by the build straight from `docs/` (no copies). Links to repo files point to GitHub `blob/main/…`; fix commits and the reviewed commit are linked by hash. If a full doc changes, carry the change over by hand.
 3. Done (2026-11-01): `submission/build.sh` joins the parts (each in a div with its own id, so `style.css` can start each on a new page and style single parts) and builds `documentation.pdf` with `metadata.yaml` (title page: "Name and matriculation number: on the submitted copy"); if `title.local.yaml` exists, also `aufgabe_1_<surname>.pdf`, whose `author` lines replace the neutral one. `template.html` is the page frame with the title page. `.gitignore` ignores `aufgabe_*.pdf` and `title.local.*` (tested with sample paths; `documentation.pdf` stays tracked). Result: 13 pages; spec and AI log on one page each. Pandoc runs with `--columns 10000` so table columns are sized by content, and the `[full]` link labels in the condensed files were made unique (`[full-review]` etc.), because joined into one document they would all point to the first one. Open for the PDF check: the environment (p2) and the amendments (p4) each use a nearly empty page.
-4. Retake screenshots 01, 02 and 05.
+4. Done (2026-11-01): new screenshots `docs/screenshots/final-01-values.png`, `final-02-chart.png`, `final-05-warning.png`, taken in one run with injected values (after Reset: phone at rest with one bump of ≈ 12.5 m/s², one floor higher, 5 GPS steps north; then a 30 m/s² shock with Shock alerts on). The old 01–06 stay (smoke test of the raw AI output; `review.md` cites 06). The Values tab is taller than the screen: the shot shows it scrolled to the top, so the last GPS rows are cut off. The emulator's 1 Hz fix stream has occasional gaps of a few seconds (the GPS card then correctly shows 0.0 Hz), so the Values shot was taken after waiting for 1.0 Hz.
 5. Check the built PDF together, page by page; the user adds name and matriculation number locally and builds the hand-in PDF.
 6. Submission: tag the repo; switch the `blob/main/` links in `submission/*.md` to the tag and rebuild; ZIP of `src` without build folders and the pinned link in the PDF; push; upload to Ilias.
 
