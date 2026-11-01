@@ -1,4 +1,4 @@
-# Handoff – Task 1 (state of 2026-11-01, ~12:04 CET)
+# Handoff – Task 1 (state of 2026-11-01, ~12:11 CET)
 
 Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and `TODO.md`. The working rules (walk the user through first, one decision at a time, Claude never commits, English only, ask before touching files on C:) are in the CLAUDE.md files and in Claude's memory.
 
@@ -51,17 +51,12 @@ Read this first in a new session, together with `../CLAUDE.md`, `CLAUDE.md` and 
 
 ## Next steps
 
-1. User commits the staged state (claim edits in `assessment.md` and `measurements.md`, this file).
-2. Condensed files in `aufgabe-1/submission/`, written from the full docs (PDF rule: "as little as possible, as much as necessary"):
-   - `review.md`: propose a trim list to the user first.
-   - `measurements.md`: drop the overview table; barometer step test (2.1) down to two sentences; event-rate explanation down to the `dumpsys` excerpt plus the "only a suggested delay" quote, AOSP as a one-clause link, no `SENSOR_DELAY_UI` footnote; run 4 with the coincidence argument only; method paragraph in 3 sentences; in section 5, drop the straight-line estimate (2.45 % fixed share, "even 5 Hz would save only about a fifth") and keep the measured facts (−16.5 % CPU for −70 % events; 83 % remained).
-   - `assessment.md`: scenario in one sentence; GDPR Art. 4(1) quoted only up to "location data"; the paragraphs on what the cloud is used for and on the own model one sentence each.
-   - `environment.md`: the PDF requires only device, Android version, AI tool and model; the host and toolchain rows and the sources line are optional.
-   - `specification.md` unchanged (it is the prompt); `spec-amendments.md` as a short table; `ai-log.md` unchanged (already one page).
-3. Stylesheet, build script (pandoc + WeasyPrint, two outputs), `.gitignore` rules for the hand-in PDF and the local title file (the existing `/aufgabe-*.pdf` rule doesn't match `aufgabe_1_…`).
+1. User commits the staged state (`submission/*.md`, this file).
+2. Done (2026-11-01): condensed files in `aufgabe-1/submission/` (`review.md` with all five findings, `measurements.md`, `assessment.md`, `environment.md`, `spec-amendments.md`), written from the full docs following the trim lists; rough render: review 3 pages (full: 9), measurements 3 (6), assessment 2 (3). `specification.md` and `ai-log.md` are read by the build straight from `docs/` (no copies). Links to repo files point to GitHub `blob/main/…`; fix commits and the reviewed commit are linked by hash. If a full doc changes, carry the change over by hand.
+3. Stylesheet, build script (pandoc + WeasyPrint, two outputs), `.gitignore` rules for the hand-in PDF and the local title file (the existing `/aufgabe-*.pdf` rule doesn't match `aufgabe_1_…`). The spec must fit on one page (a rough test stylesheet gave 2 pages) and the AI log too (one page at 9.5 pt text, 8 pt tables, 2 cm margins).
 4. Retake screenshots 01, 02 and 05.
 5. Check the built PDF together, page by page; the user adds name and matriculation number locally and builds the hand-in PDF.
-6. Submission: tag the repo; ZIP of `src` without build folders and the pinned link in the PDF; push; upload to Ilias.
+6. Submission: tag the repo; switch the `blob/main/` links in `submission/*.md` to the tag and rebuild; ZIP of `src` without build folders and the pinned link in the PDF; push; upload to Ilias.
 
 ## Practical notes
 
