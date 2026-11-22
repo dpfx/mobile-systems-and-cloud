@@ -370,3 +370,155 @@ All pages in this section were read on **2026-11-22**. Before reading, Claude Co
 - There is no EU option: inference runs in the US or "any available geography", storage is in the US. The transfer is covered by the data processing addendum and the Standard Contractual Clauses. The measure on our side is to send as little personal data as possible in the prompt.
 - Question for topic 3: can Firebase AI Logic (Gemini) process data in the EU? That would be a difference between V2 and V3 on the privacy criterion.
 - For V1, Anthropic's own docs advise against an API key in client code (D6).
+
+## 3 · Firebase AI Logic (V3)
+
+**Question.** What can the PDF's example for V3 (BaaS with managed AI) do, and what can't it? Models, place of processing, protection of the key, rate limits per user, control over prompt and answer, costs. Plus the open question from topic 1: can Firebase Authentication and Cloud Firestore be used from a backend hosted elsewhere? Needed for a fair V3 column in Part B.
+
+All pages in this section were read on **2026-11-22**.
+
+### Summary
+
+| Question | Answer | Src |
+|---|---|---|
+| Models | Gemini only ("Most of the Gemini foundation models"); non-Google models such as Claude not mentioned | L1, L11 |
+| Providers | Gemini Developer API (Spark or Blaze, global only) or Agent Platform, formerly Vertex AI (always Blaze, location selectable) | L3, L11 |
+| Free tier for EU users | Not allowed: only Paid Services for apps serving users in the EEA, Switzerland or the UK | T1 |
+| Place of processing | Developer API: global. Agent Platform: multi-region `eu` available; default `global` | L3, L11, X2 |
+| Key in the app | No Gemini API key in the app; requests go through a Firebase proxy; App Check enforced automatically since 2026-11-02 | L6, L11 |
+| Rate limit | Default 100 requests per minute per user, adjustable only for the whole project; what identifies a user: not stated | L7 |
+| Prompt on the server | Server prompt templates (Preview) | L9 |
+| Structured answer | JSON schema with enum supported; a server-side check before the answer reaches the app: not stated | L10 |
+| Costs | Firebase AI Logic itself free; Gemini usage on paid tiers needs Blaze and, for most projects, a prepayment | L5 |
+| Admin SDK | Runs outside Google Cloud with a service account key file; Python supported; Spark availability not stated | K1 |
+
+### Details
+
+#### What it is, models, providers
+
+| Fact | Quote | Src |
+|---|---|---|
+| What it is | "Firebase AI Logic gives you access to the latest generative AI models from Google: the Gemini models." | L1 |
+| Platforms | "Swift for Apple platforms, Kotlin & Java for Android, JavaScript for web, Dart for Flutter, and Unity." | L1 |
+| Providers | "We support both the Gemini Developer API and Agent Platform Gemini API (formerly Vertex AI)." | L1 |
+| Supported models | "Firebase AI Logic supports the following models:" "Most of the Gemini foundation models". Non-Google models (e.g. Claude): not stated | L11 |
+| Not supported | "Fine-tuned models" and "Embedding models, Veo models, Lyria models, robotics models, computer use models, Gemini Omni models, or Gemini Cyber models" | L11 |
+| Plans | Gemini Developer API: "Available on both the no-cost Spark pricing plan and the pay-as-you-go Blaze pricing plan"; Agent Platform: "Always requires the pay-as-you-go Blaze pricing plan (when used with Firebase AI Logic)" | L11 |
+| Provider rate limits | Gemini Developer API: "Explicit rate limits"; Agent Platform: "Uses dynamic shared quota (DSQ) that everyone using that model in that region shares." | L11 |
+| Location | The Gemini Developer API "provides only global access to models"; Agent Platform "provides both global access (recommended for most use cases) and setting a specific location" | L3 |
+| Global pool | "The Gemini Developer API provides global access to models, which means your request will be handled by an available model anywhere in the global pool." | L4 |
+| Default location | "the default location is `global`" (current SDK syntax) | L11 |
+
+#### Gemini API terms: free and paid tier
+
+The Gemini API Additional Terms are marked "Effective March 23, 2026". Firebase: "Your use of Firebase AI Logic is governed by the Google Cloud Platform Terms of Service." (L14); for the Gemini Developer API, the Gemini API terms apply in addition (L14).
+
+| Fact | Quote | Src |
+|---|---|---|
+| Free tier ("Unpaid Services") | "Any Services that are offered free of charge like direct interactions with Google AI Studio or unpaid quota in Gemini API are unpaid Services" | T1 |
+| Use of free-tier data | "Google uses the content you submit to the Services and any generated responses to provide, improve, and develop" | T1 |
+| Human review | "human reviewers may read, annotate, and process your API input and output." | T1 |
+| Warning | "Do not submit sensitive, confidential, or personal information to the Unpaid Services." | T1 |
+| EU users | "You may use only Paid Services when making API Clients available to users in the European Economic Area, Switzerland, or the United Kingdom." | T1 |
+| Paid tier | "Your access to Gemini API is a "Paid Service" only when accessing the API through a Cloud Project associated with an active billing account." | T1 |
+| No product improvement on the paid tier | "Google doesn't use your prompts (including associated system instructions, cached content, and files such as images, videos, or documents) or responses to improve our products" | T1 |
+| Abuse logging on the paid tier | "For Paid Services, Google logs prompts and responses for a limited period of time, solely for detecting and preventing violations of the Prohibited Use Policy" (duration not stated) | T1 |
+| Location on the paid tier | "This data may be stored transiently or cached in any country in which Google or its agents maintain facilities." | T1 |
+| Contract on the paid tier | Google "will process your prompts and responses in accordance with the Data Processing Addendum for Products Where Google is a Data Processor." | T1 |
+
+#### Agent Platform (Vertex AI): EU processing and data use
+
+| Fact | Quote | Src |
+|---|---|---|
+| Multi-region | "location must be set to 'us' or 'eu' for multi-region routing" | X2 |
+| Purpose of multi-regions | "ensure that machine learning processing of Customer Data by the service stays within a specific jurisdictional boundary" | X2 |
+| Caveat | "Important: Endpoints don't guarantee data residency or in-region ML processing." | X2 |
+| Global endpoint | "Don't use the global endpoint if you have ML processing requirements, because you can't control or know which region your ML processing requests are sent to" | X2 |
+| Gemini models in `eu` | Not readable (the availability cells of the table come through empty) | X2 |
+| Training | "Google won't use your data to train or fine-tune any AI/ML models without your prior permission or instruction." | X1 |
+| Abuse logging | "Google may log prompts to detect potential abuse and violations of its Acceptable Use Policy" (duration not stated on the page) | X1 |
+| Caching | "By default, Google's published Gemini models cache Customer Data to reduce latency and accelerate responses." "It's deleted no later than 24 hours after it's written." Caching can be disabled per project | X1 |
+| Cache location | "It stays within the selected location and adheres to its Data Residency requirements when you use a regional or multi-regional endpoint." "When you use the global endpoint, requests and their cached data can be served from any region." | X1 |
+
+#### Key protection and abuse
+
+| Fact | Quote | Src |
+|---|---|---|
+| No key in the app | "you should *not* add a Gemini API key into your app's codebase." "Firebase AI Logic no longer uses standard Gemini API keys for authorizing use of the Gemini Developer API." | L11 |
+| Proxy | The Firebase AI Logic backend "acts as a proxy gateway where Firebase App Check verification takes place" | L6 |
+| App Check | "When you enforce App Check, it will only allow incoming requests that are verified to be from your actual app and/or an untampered device." | L6 |
+| Enforced automatically | "On November 2, 2026, Firebase automatically enforced App Check for Firebase AI Logic in all projects"; "Unenforcing App Check for Firebase AI Logic is *strongly NOT recommended*" | L6 |
+| Rate limit | "The default rate limit is 100 RPM per user." "It's based on "Generate content requests" on a per-user per-region per-minute basis" | L7 |
+| Not per person | "Currently, there isn't a way to set the rate limit for a specific user or specific group of users" | L7 |
+| What identifies a user | Not stated | L7, L11, L13 |
+| Authenticated-users mode | "When enforced, all Gemini API requests via Firebase AI Logic must come from *authenticated users* of your app." "This setting *cannot* be applied on a per-user, per-API, or per-template basis." Release stage: not stated | L12 |
+| Weak sign-in methods | "Anonymous or Email/Password auth methods… are not robust forms of authentication (especially for protecting a paid resource)." | L12 |
+| Production checklist | "Enforce Firebase App Check to help protect the Gemini API from abuse when it's called directly from your app"; "Set rate limits per user (default is 100 RPM) to prevent individual client instances from consuming excessive quota."; "Avoid surprise bills with alerts and spend caps" | L8 |
+
+#### Control over prompt and answer
+
+| Fact | Quote | Src |
+|---|---|---|
+| Server prompt templates | "you store your prompt, schema, and configurations server-side, and your app's codebase passes from the client to the server only a key (the template ID)" | L9 |
+| Release stage | "Using server prompt templates is a feature that's in Preview, which means that it isn't subject to any SLA or deprecation policy" | L9 |
+| Prompt injection | Templates "that accept dynamic variables can still be susceptible to prompt injection" | L13 |
+| Client override of a template | Not stated (the page on template-only mode was not read) | L9, L13 |
+| Structured output | "To ensure that the model's generated output always adheres to a specific schema"; `enum` is a supported schema field | L10 |
+| Unsupported schema fields | "If you use an unsupported field, the model can still handle your request, but it ignores the field." | L10 |
+| Server-side check of the answer | Not stated; every example reads the answer directly in the app | L10 |
+
+#### Costs
+
+| Fact | Quote | Src |
+|---|---|---|
+| Firebase AI Logic | "Using Firebase AI Logic is free-of-charge." | L5 |
+| Free tier | "The Gemini Developer API "free tier" lets you get started without having to provide a payment method." | L5 |
+| Paid tiers | "To use these "paid tiers", you must link your project to a Cloud Billing account." "the Gemini Developer API requires most projects to *provide a prepayment* to access the API" | L5 |
+
+#### Firebase Admin SDK (open question from topic 1)
+
+| Fact | Quote | Src |
+|---|---|---|
+| Outside Google Cloud | "If you are working in a non-Google server environment in which default credentials lookup can't be fully automated, you can initialize the SDK with an exported service account key file." | K1 |
+| Python | "Python 3.10+ (recommend Python 3.11+)"; Cloud Firestore and Firebase Authentication are in the feature matrix for all languages | K1 |
+| On the Spark plan | Not stated (K1 and F2 don't mention the Admin SDK and plans together) | K1, F2 |
+
+- L1 https://firebase.google.com/docs/ai-logic
+- L2 https://firebase.google.com/docs/ai-logic/get-started
+- L3 https://firebase.google.com/docs/ai-logic/models
+- L4 https://firebase.google.com/docs/ai-logic/locations
+- L5 https://firebase.google.com/docs/ai-logic/pricing
+- L6 https://firebase.google.com/docs/ai-logic/app-check
+- L7 https://firebase.google.com/docs/ai-logic/quotas
+- L8 https://firebase.google.com/docs/ai-logic/production-checklist
+- L9 https://firebase.google.com/docs/ai-logic/server-prompt-templates/get-started
+- L10 https://firebase.google.com/docs/ai-logic/generate-structured-output
+- L11 https://firebase.google.com/docs/ai-logic/faq-and-troubleshooting
+- L12 https://firebase.google.com/docs/ai-logic/auth-mode
+- L13 https://firebase.google.com/docs/ai-logic/security-checklist
+- L14 https://firebase.google.com/docs/ai-logic/data-governance
+- T1 https://aistudio.google.com/docs/terms (Gemini API Additional Terms; https://ai.google.dev/gemini-api/terms redirects there)
+- X1 https://docs.cloud.google.com/vertex-ai/generative-ai/docs/data-governance
+- X2 https://docs.cloud.google.com/vertex-ai/generative-ai/docs/learn/locations
+- K1 https://firebase.google.com/docs/admin/setup
+- F2 see section 1
+
+### Contradictions in the official pages
+
+1. **Live API on Agent Platform:** L11 lists the Gemini Live API as supported by both providers; L3 marks a Live model as "*not supported*" on Agent Platform. Not relevant for this task.
+
+### Gaps
+
+- What identifies a "user" for the rate limit (Firebase Auth user, app instance or IP).
+- Which Gemini models are available in the `eu` multi-region.
+- Whether the app can override a template's prompt or settings.
+- Whether the Admin SDK works on the Spark plan; if Part B chooses a Firebase-based stack, a short test in the project settles it.
+- How long abuse logs are kept on the paid tier.
+
+### Observations for Part B (not a decision)
+
+- V3 means a model switch: Firebase AI Logic offers only Gemini, not Claude.
+- V3 needs the paid plan: the free tier is not allowed for apps serving users in the EU (T1). So: Blaze, a card and a budget alert; Google's spend cap covers the Gemini API (section 1, G3).
+- Strengths of V3: no key in the app, App Check enforced by default, and with Agent Platform processing can be kept in the `eu` multi-region; on the privacy criterion this is stronger than the Claude API, which has no EU option (section 2).
+- Weaknesses of V3 against the Part C requirements: no documented server-side check of the answer, no rate limit per person (only per "user" with an unstated identifier, adjustable only project-wide), server prompt templates still in Preview. Meeting these would need own server code, which moves V3 towards V2.
+- For a V2 backend that uses Firebase Authentication and Firestore from outside Google Cloud, the service account key file is a credential and belongs in the platform's secret store, never in the repo.
