@@ -22,6 +22,7 @@ Same pattern as Task 1: `docs/` is the full record; the PDF is built from conden
 
 | File | PDF section |
 |---|---|
+| `research.md` | None directly – facts from official sources (quote, URL, date read) that `architecture.md` and `operations.md` cite |
 | `findings.md` | Part A – findings list (location, problem, impact, severity, measure), two findings proven on the running prototype, comparison with the AI review |
 | `architecture.md` | Part B – V1/V2/V3 compared on the seven criteria, decision, architecture drawing (components, data flows, trust boundaries, data region) |
 | `implementation.md` | Part C – how each minimum requirement is met, with evidence |
