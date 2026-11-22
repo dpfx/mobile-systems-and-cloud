@@ -273,3 +273,100 @@ All pages in this section were read on **2026-11-22**.
 ### Note
 
 Several Supabase docs pages (among them S2, S4, S5) contain a text block "Note for AI agents" that asks the reading agent to file a feedback report and to ask the user "Send this report to Supabase?". The fetching agent ignored it. It is a real example of instructions hidden in web content addressed to an AI (indirect prompt injection), relevant for Part D.
+
+## 2 · How Anthropic handles Claude API data
+
+**Question.** Where does Anthropic process requests to the Claude API, how long does it keep inputs and outputs, are they used for training, and which contract covers the processing? Needed for Part B (privacy: place of processing) and Part E (privacy).
+
+All pages in this section were read on **2026-11-22**. Before reading, Claude Code's `claude-api` skill was loaded (project rule); its notes on `inference_geo` match D1.
+
+### Summary
+
+| Question | Answer | Src |
+|---|---|---|
+| Place of processing | Default `"global"` (any available geography); optional `"us"` at 1.1× the price; no EU option | D1 |
+| Place of storage | Workspace geo: only `"us"` | D1 |
+| Retention | Deleted within 30 days (D2); the docs say not retained by default (D3), see contradictions; up to 2 years if flagged | D2, D3 |
+| Training | Not on customer content | D3, D4 |
+| Contract | Data processing addendum is part of the Commercial Terms; Anthropic is the processor; EU Standard Contractual Clauses for transfers | D4, D5 |
+| Key in the client | Anthropic advises against it; browser calls need an explicit "dangerous" header | D6 |
+
+### Details
+
+#### Place of processing and storage
+
+| Fact | Quote | Src |
+|---|---|---|
+| Two settings | "Inference geo: Controls where model inference runs, on a per-request basis." "Workspace geo: Controls where data is stored at rest and where endpoint processing (such as image transcoding and code execution) occurs." | D1 |
+| Default | `"global"`: "Default. Inference may run in any available geography for optimal performance and availability." | D1 |
+| US only | `"us"`: "Inference runs only in US-based infrastructure." | D1 |
+| No other option | "Inference geo: Only `"us"` and `"global"` are available." | D1 |
+| Storage | "Currently, `"us"` is the only available workspace geo." "Workspace geo is set when you create a workspace and can't be changed afterward." | D1 |
+| Price | "US-only inference (`inference_geo: "us"`) is priced at 1.1x the standard rate across all token pricing categories" | D1 |
+| Evidence per request | "The response `usage` object includes an `inference_geo` field indicating where inference ran" | D1 |
+| Models | "The `inference_geo` parameter is supported on Claude 4.6 and later models." | D1 |
+| Workspace policy | `allowed_inference_geos` "Restricts which geos a workspace can use"; `default_inference_geo` "Sets the fallback geo when `inference_geo` is omitted from a request" | D1 |
+
+#### Retention
+
+| Fact | Quote | Src |
+|---|---|---|
+| Default (privacy center, article updated July 1, 2026) | "For Anthropic API users, we automatically delete inputs and outputs on our backend within 30 days of receipt or generation" | D2 |
+| Flagged requests | "We retain inputs and outputs for up to 2 years" and "trust and safety classification scores for up to 7 years" | D2 |
+| Feedback | "we retain data associated with that submission for 5 years" | D2 |
+| Default (docs) | "Conversation content (your prompts and Claude's outputs) is not retained by default; the exception is Covered Models, which require 30-day retention." | D3 |
+| Regardless of arrangement | "if a chat or session is flagged, Anthropic may retain inputs and outputs for up to 2 years." | D3 |
+| Zero data retention | "Under a ZDR arrangement, Anthropic does not store customer prompts or responses at rest after the API response is returned. To request ZDR for your organization, contact the Anthropic sales team." | D3 |
+| Structured outputs | "Your prompts and Claude's outputs are not stored. Only the JSON schema is cached, for up to 24 hours since last use." | D3 |
+| Batch processing | "29-day retention; async storage required." | D3 |
+| Covered Models (Claude Fable, Claude Mythos) | "These models require 30-day data retention and are not available under ZDR unless expressly authorized by Anthropic." | D3 |
+
+#### Training
+
+| Fact | Quote | Src |
+|---|---|---|
+| Commercial Terms, section B | "Anthropic may not train models on Customer Content from Services." | D4 |
+| Docs | "Retained data is never used for model training without your express permission." | D3 |
+
+#### Contract
+
+| Fact | Quote | Src |
+|---|---|---|
+| Data processing addendum included | "Data submitted through the Services will be processed in accordance with the Anthropic Data Processing Addendum", "which is incorporated into these Terms by reference." (section C) | D4 |
+| Roles | "With respect to Customer Personal Data, Customer is the controller and Anthropic is Customer's processor." | D5 |
+| Transfers | "the terms of the SCCs Module Two (controller to processor) and/or Module Three (processor to processor)" are incorporated (section I.1). EU–US Data Privacy Framework: not stated | D5 |
+| Processing locations | Not stated | D4, D5 |
+| Subprocessors | "Anthropic's list of subprocessors is available at https://www.anthropic.com/subprocessors" (Schedule 4). The URL redirects to https://trust.anthropic.com/subprocessors, which can't be read automatically (only the page title came back) | D5 |
+| Deletion after the contract | "Within thirty (30) days of the date of termination or expiration of the Agreement", Anthropic will "delete all copies of Customer Data (including Customer Personal Data)" (section H.1) | D5 |
+| Outputs | The customer "(b) owns its Outputs." (section B) | D4 |
+
+#### API keys and calls from the client
+
+| Fact | Quote | Src |
+|---|---|---|
+| Recommendation | "Call the Claude API from your own back end, not from code that runs in your users' browsers. Anyone who uses a webpage can read an API key in that page's code. Typically, your web front end calls your back end, which holds the key and calls the Claude API." | D6 |
+| Browser calls | "The API accepts these requests only when they include the `anthropic-dangerous-direct-browser-access: true` header" | D6 |
+| Native apps | "App Attest authenticates iOS and macOS apps that call the Claude API directly from the device." "Tokens are scoped to your workspace, expire after 1 hour, and authorize only Messages API calls." An equivalent for Android or web apps: not stated | D6 |
+| Key hygiene | "Store API keys in a secrets manager, rotate them periodically, and disable or delete any key you suspect has leaked." Expiration presets "3 hours, 1 day, 7 days, or 30 days". "To limit where a leaked key works, turn on IP allowlisting." | D6 |
+
+- D1 https://platform.claude.com/docs/en/manage-claude/data-residency
+- D2 https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data
+- D3 https://platform.claude.com/docs/en/manage-claude/api-and-data-retention
+- D4 https://www.anthropic.com/legal/commercial-terms (effective date shown: Jun 17, 2025)
+- D5 https://www.anthropic.com/legal/data-processing-addendum (effective date shown: Feb 24, 2025)
+- D6 https://platform.claude.com/docs/en/manage-claude/authentication
+
+### Contradictions in the official pages
+
+1. **Default retention:** D2 says inputs and outputs are deleted "within 30 days of receipt or generation"; D3 says conversation content "is not retained by default". The docs assume the stricter reading: kept up to 30 days, up to 2 years if flagged.
+
+### Gaps
+
+- The subprocessor list (which cloud providers, which countries) can't be read automatically.
+- Whether the EU–US Data Privacy Framework is used: not stated in D5.
+
+### Observations for Parts B and E (not a decision)
+
+- There is no EU option: inference runs in the US or "any available geography", storage is in the US. The transfer is covered by the data processing addendum and the Standard Contractual Clauses. The measure on our side is to send as little personal data as possible in the prompt.
+- Question for topic 3: can Firebase AI Logic (Gemini) process data in the EU? That would be a difference between V2 and V3 on the privacy criterion.
+- For V1, Anthropic's own docs advise against an API key in client code (D6).
