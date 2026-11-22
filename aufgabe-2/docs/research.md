@@ -522,3 +522,117 @@ The Gemini API Additional Terms are marked "Effective March 23, 2026". Firebase:
 - Strengths of V3: no key in the app, App Check enforced by default, and with Agent Platform processing can be kept in the `eu` multi-region; on the privacy criterion this is stronger than the Claude API, which has no EU option (section 2).
 - Weaknesses of V3 against the Part C requirements: no documented server-side check of the answer, no rate limit per person (only per "user" with an unstated identifier, adjustable only project-wide), server prompt templates still in Preview. Meeting these would need own server code, which moves V3 towards V2.
 - For a V2 backend that uses Firebase Authentication and Firestore from outside Google Cloud, the service account key file is a credential and belongs in the platform's secret store, never in the repo.
+
+## 4 · EU AI Act
+
+**Question.** Which risk class applies to an app in which an AI suggests the priority of fault reports, and which obligations follow from it? Needed for Part E.
+
+All pages in this section were read on **2026-11-22**. EUR-Lex returned empty responses (HTTP 202) to the automated fetch, so the legal text comes from the European Commission's AI Act Service Desk, which states that its text is "based on the EUR-Lex consolidated version of the AI Act as at 27 July 2026" and marks amended passages (E6). Some sources limited quote length; text marked "paraphrase" restates the source in own words.
+
+### Summary
+
+| Question | Answer | Src |
+|---|---|---|
+| Amendment | The AI Omnibus, Regulation (EU) 2026/1744, in force since 27 July 2026 | E1, E2, E6 |
+| Risk levels | Unacceptable, high, transparency, minimal or no risk | E1 |
+| High-risk via Annex III | Point 2 covers safety components in critical infrastructure; rules apply from 2 December 2027 | E1, E4, E10 |
+| Exceptions | Art. 6(3): no significant risk, e.g. narrow procedural or preparatory task; never with profiling | E9 |
+| Transparency | Art. 50 applies since 2 August 2026 | E4, E11 |
+| AI literacy | Art. 4 (amended) applies to providers and deployers | E8 |
+| General-purpose AI models | Obligations on the providers of the models | E1 |
+
+### Details
+
+#### Amendment and timeline
+
+| Fact | Quote | Src |
+|---|---|---|
+| AI Omnibus | "was adopted on 19 November 2025, a political agreement was reached on 7 May 2026 and entered into force on 27 July 2026" (reference given: OJ L_202601744) | E1 |
+| | "On 27 July 2026, the AI Omnibus enters into force across the EU." | E2 |
+| Regulation number | The Service Desk names the amending act "Regulation (EU) 2026/1744 (Digital Omnibus on AI)" | E6 |
+| Already applies | "02 Feb 2025 — General provisions (definitions & AI literacy) and prohibitions apply"; "02 Aug 2025 — Rules for general-purpose AI apply and governance must be in place"; "02 Aug 2026 — The majority of rules of the AI Act come into force and enforcement starts for applicable rules"; "Transparency rules (Article 50) start to apply." | E4 |
+| Next dates | "02 Dec 2026 — New prohibitions + Article 50(2) transition apply"; "02 Dec 2027 — Rules for high-risk AI systems in Annex III apply"; "02 Aug 2028 — Rules for high-risk AI embedded in regulated products covered by Annex I apply" | E4 |
+| High-risk delay | Annex III rules "have been extended to 2 December 2027 as a result of the political agreement" | E1 |
+
+#### Risk levels and prohibitions
+
+| Fact | Quote | Src |
+|---|---|---|
+| Four levels | "The AI Act defines 4 levels of risk for AI systems:" with the headings "Unacceptable risk", "High risk", "Transparency risk" and "Minimal or no risk" | E1 |
+| Minimal risk | "The AI Act does not introduce rules for AI that is deemed minimal or no risk." "The vast majority of AI systems currently used in the EU fall into this category." Examples: "AI-enabled video games or spam filters" | E1 |
+| Prohibited practices | "The AI Act prohibits nine practices, namely:" "harmful AI-based manipulation and deception"; "harmful AI-based exploitation of vulnerabilities"; "social scoring"; "Individual criminal offence risk assessment or prediction"; "untargeted scraping of the internet or CCTV material to create or expand facial recognition databases"; "emotion recognition in workplaces and education institutions"; "biometric categorisation to deduce certain protected characteristics"; "real-time remote biometric identification for law enforcement purposes in publicly accessible spaces"; "AI systems that generate non-consensual sexually explicit and intimate content or child sexual abuse (CSAM)" | E1 |
+| Dates | "Prohibitions 1-8 became effective in February 2025." "Prohibition 9 comes into effect in December 2026 and was introduced as a part of the AI Omnibus." | E1 |
+
+#### Definitions (Art. 3, not amended)
+
+| Fact | Quote | Src |
+|---|---|---|
+| AI system, point (1) | "'AI system' means a machine-based system that is designed to operate with varying levels of autonomy"; paraphrase of the rest: it infers from its input how to generate outputs that can influence environments | E7 |
+| Provider, point (3) | "'provider' means a natural or legal person, public authority, agency or other body that develops an AI system"; paraphrase of the rest: and places it on the market or puts it into service under its own name | E7 |
+| Deployer, point (4) | "'deployer' means a natural or legal person, public authority, agency or other body using an AI system"; paraphrase of the rest: except in a personal non-professional activity | E7 |
+
+#### High-risk classification (Art. 6, Annex III)
+
+| Fact | Quote | Src |
+|---|---|---|
+| Annex III | Art. 6(2): "AI systems referred to in Annex III shall be considered to be high-risk." | E9 |
+| Exception | Art. 6(3): an Annex III system is not high-risk "where it does not pose a significant risk" of harm to health, safety or fundamental rights, "including by not materially influencing the outcome of decision making" | E9 |
+| Conditions | (a) "is intended to perform a narrow procedural task"; (b) "is intended to improve the result of a previously completed human activity"; (c) paraphrase: detects decision-making patterns or deviations, without replacing or influencing the human assessment without proper human review; (d) "intended to perform a preparatory task to an assessment relevant" for the Annex III use cases | E9 |
+| Profiling | An Annex III system "shall always be considered to be high-risk where the AI system performs profiling of natural persons" | E9 |
+| Annex III point 2 | "AI systems intended to be used as safety components in the management and operation of critical digital infrastructure"; paraphrase of the rest: road traffic, and the supply of water, gas, heating or electricity | E10 |
+| Annex III point 4 | Paraphrase: (a) "AI systems intended to be used for the recruitment or selection of natural persons"; (b) decisions on work-related relationships, promotion or termination, task allocation based on individual traits, monitoring of performance and behaviour | E10 |
+| Guidelines on classification | "The draft Guidelines are open for stakeholder feedback through a public consultation"; "The consultation will be open until 23 July, 2026", "before their formal adoption by the Commission." Adoption date: not stated | E12 |
+
+#### Transparency (Art. 50, paras. 1 to 6 not amended)
+
+| Fact | Quote | Src |
+|---|---|---|
+| Para. 1 | "Providers shall ensure that AI systems intended to interact directly with natural persons are designed"; paraphrase of the rest: so that the persons are informed that they are interacting with an AI system, unless this is obvious | E11 |
+| Para. 2 | "Providers of AI systems, including general-purpose AI systems, generating synthetic audio, image, video or text content"; paraphrase of the rest: must mark the outputs in a machine-readable format as artificially generated; exceptions include assistive editing functions | E11 |
+| Generative AI | "providers of generative AI have to ensure that AI-generated content is identifiable." | E1 |
+
+#### AI literacy (Art. 4, amended by the AI Omnibus)
+
+| Fact | Quote | Src |
+|---|---|---|
+| Obligation | "Providers and deployers of AI systems shall take measures to support the development of AI literacy" | E8 |
+| Limit | The obligation "does not require providers or deployers to guarantee any specific level of AI literacy of any individual." | E8 |
+| Support | The Commission "shall publish practical examples of how to comply with that obligation" | E8 |
+| Omnibus summary | "Previous AI literacy requirement for companies is simplified, with the Commission and the Member States taking a stronger role in promoting AI literacy." | E2 |
+
+#### General-purpose AI models
+
+| Fact | Quote | Src |
+|---|---|---|
+| Who | "the AI Act puts in place rules – e.g. on transparency and copyright – for providers of GPAI models." | E1 |
+| Since | "the governance rules and the obligations for GPAI models became applicable on 2 August 2025" | E1 |
+| Enforcement | "The AI Office holds enforcement powers over GPAI models." | E1 |
+
+- E1 https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai (last update 19 October 2026)
+- E2 https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force
+- E3 https://digital-strategy.ec.europa.eu/en/library/digital-omnibus-ai-regulation-proposal
+- E4 https://ai-act-service-desk.ec.europa.eu/en/ai-act/timeline/timeline-implementation-eu-ai-act
+- E5 https://ai-act-service-desk.ec.europa.eu/en/faq?combine=&faq_category_id=99
+- E6 https://ai-act-service-desk.ec.europa.eu/en/ai-act-explorer
+- E7 https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-3
+- E8 https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4
+- E9 https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-6
+- E10 https://ai-act-service-desk.ec.europa.eu/en/ai-act/annex-3
+- E11 https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-50
+- E12 https://ai-act-service-desk.ec.europa.eu/en/guidelines-classification-high-risk-ai-systems
+- Not readable: EUR-Lex (HTTP 202, empty) for the Act and for OJ L_202601744; https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-53 (HTTP 429)
+
+### Gaps
+
+- The wording of Art. 5 and Art. 53 was not read; the Commission's overview (E1) stands in for them.
+- Art. 6(4) was not read (what a provider must document when relying on Art. 6(3)).
+- The publication date of Regulation (EU) 2026/1744 in the Official Journal is not confirmed.
+- The guidelines on high-risk classification are still a draft (E12).
+
+### Observations for Part E (preliminary assessment, not legal advice)
+
+- The app is likely an AI system: it derives a recommendation (the priority) from the input. As its developer we would be the provider; an organisation using it would be the deployer.
+- None of the nine prohibited practices applies.
+- For general fault reports (building, IT, facilities) the app is not a safety component of critical infrastructure, so not high-risk under Annex III point 2. Borderline case to discuss in Part E: a utility prioritising faults in its electricity, gas or water supply; then Art. 6(3)(d) (preparatory task, a human decides) would have to be examined, and high-risk rules would apply from 2 December 2027 at the earliest.
+- Obligations that apply anyway: AI literacy (Art. 4) and, very likely, transparency: label the priority as an AI suggestion in the app (Art. 50(1)). Whether a priority label counts as "synthetic text" under Art. 50(2) is unclear; labelling covers both readings.
+- The obligations for the language model itself lie with its provider (Anthropic or Google), not with us.
