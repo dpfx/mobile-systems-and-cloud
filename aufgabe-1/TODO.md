@@ -41,11 +41,11 @@ Deliverables from `../aufgabe-1.pdf` (pages 6–7) and the steps agreed in the s
 - [x] PDF built with pandoc + WeasyPrint; stylesheet in the repo (`submission/build.sh`, `style.css`)
 - [x] Page check with the student; line-by-line review against the task; spell check
 - [x] Links in the PDF pinned to the tag `aufgabe-1-submission`
-- [ ] Tag `aufgabe-1-submission` created and pushed (by the student)
-- [ ] Title page with name and matriculation number (student: `submission/title.local.yaml`, then `build.sh`)
+- [x] Tag `aufgabe-1-submission` created and pushed (by the student; commit `c05732d`)
+- [x] Title page with name and matriculation number (student: `submission/title.local.yaml`, then `build.sh`)
 - [x] File name `aufgabe_1_<surname>.pdf` (set by `build.sh`)
 - [x] Code: link to the public GitHub repo, pinned to the tag (page 4 allows a link instead of a ZIP)
-- [ ] Upload to Ilias
+- [x] Upload to Ilias (2026-11-01)
 
 ## Housekeeping
 - [x] Optional: remove the outdated "Candidates for the spec" section from `docs/guidelines.md`
