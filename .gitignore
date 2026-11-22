@@ -5,6 +5,9 @@
 aufgabe_*.pdf
 title.local.*
 
+# Session handoffs: local working notes between Claude Code sessions; may contain sensitive details
+HANDOFF.md
+
 # Gradle / Android build output
 .gradle/
 .kotlin/
