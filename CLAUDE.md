@@ -5,7 +5,7 @@ University lab course, HS Albstadt-Sigmaringen. Done solo, although the PDF assu
 ## Course rules (apply to every task)
 - The student must be able to explain every line of the submission, so prefer plain, readable code over clever code.
 - No secrets in code or Git: API keys go in environment variables or `.env`, which is gitignored. Never put third-party personal data in prompts.
-- Use free tiers only.
+- Use free tiers only. One documented exception: the LLM runs on the user's own Claude API account, approved for this course. Every call costs real money, so Claude makes no API call without the user's explicit go. Account details stay out of the repo.
 - **Everything is in English**: code, comments, commit messages, docs and the submission PDF. Docs follow the course rule "as little as possible, as much as necessary": no background chapters; every claim backed by a screenshot, measurement or excerpt.
 - Every submission includes an AI log (max. one page, template on page 4 of the PDF). Keep AI work traceable for it (see Git workflow).
 
